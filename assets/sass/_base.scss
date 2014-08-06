@@ -1,0 +1,41 @@
+/**
+* @ base css include. Base styling.
+**/
+
+@mixin font-size($sizeValue: 1.6) {
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
+}
+
+
+
+$bodyfont: 'Open Sans', sans-serif;
+$bodycolor: #333;
+$linkcolor: #2ccefc;
+$linkaltcolor:#2ddb77;
+$fadecolor: #999;
+$darkbuttonhover: #292929;
+$bright: #fff;
+$headerfont:"futura-pt",sans-serif;
+$confont:"futura-pt-condensed",sans-serif;
+$cursive:"Grand Hotel", cursive;
+//$headerfont:"futura-pt-condensed",sans-serif;
+$h2size:3rem;
+$h3size:2.4rem;
+$h4size:1.3rem;
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+html{
+	font-size:62.5%;
+}
+body{
+	font-family: $bodyfont;
+	color:#333;
+	@include font-size(1.4);
+}
