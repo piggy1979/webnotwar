@@ -1,1 +1,78 @@
+header.banner{
 
+	li a{
+		display:block;
+		padding: 5px;
+		text-transform:uppercase;
+		font-size: $h3size;
+		color:$bodycolor;
+		font-family: $headerfont;
+	}
+	button{
+		float:right;
+		margin-top:-5px;
+	}
+	button span.icon-bar{
+		width:30px;
+		height:3px;
+		background-color: $bodycolor;
+		display:block;
+		margin:5px;
+		@include transition-duration(0.3s);
+		@include transition-property(all);
+	}
+	button.active span.icon-bar:nth-child(2){
+		@include simple-transform(1, -45deg, -6px, 5px);
+	}
+	button.active span.icon-bar:nth-child(3){
+		@include rotate(45deg);
+	}
+	button.active span.icon-bar:nth-child(4){
+		@include simple-transform(1, -45deg, 5px, -6px);
+	}
+	a.navbar-brand{
+		color:#fff;
+		font-family: $headerfont;
+		float: left;
+		@include font-size(2);
+		&:hover{
+			text-decoration: none;
+		}
+	}
+	#menu-primary-navigation{
+		clear:both;
+	}
+	div.navbar-header{
+		background-color: $linkcolor;
+		padding:10px 20px;
+		overflow:hidden;
+	}
+	nav.navbar-collapse{
+		position:relative;
+		max-height:1px;
+		@include perspective(800px);
+		@include transition-duration(0.3s);
+		@include transition-property(all);
+	}
+	nav.navbar-collapse.active{
+		max-height:200px;
+	}
+	nav ul#menu-primary-navigation{
+		position:relative;
+		padding:10px 20px;
+		background-color: #343434;
+		@include transform-style(preserve-3d);
+		@include transform-origin(top, center);
+		@include rotateX(-100deg);
+		@include backface-visibility(hidden);
+		width:100%;
+		@include transition-duration(0.3s);
+		@include transition-property(all);
+	}
+	nav.active ul#menu-primary-navigation{
+		max-height:200px;
+		height:100%;
+		@include rotateX(0deg);
+
+	}
+}
