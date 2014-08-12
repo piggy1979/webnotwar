@@ -1,5 +1,27 @@
 main{
 
+	h1{
+		@include font-size($h1size);
+		text-transform:uppercase;
+		color: #666;
+		font-family: $headerfont;
+		border-left: 9px solid $linkcolor;
+		padding-left:6px;
+		margin: $gap 0;
+	}
+	h2{
+		color: $linkaltcolor;
+		@include font-size($h2size);
+		margin: $gap 0;
+		line-height:150%;
+		a{
+			color: $linkaltcolor;
+			&:hover{
+				color: $linkcolor;
+			}
+		}
+	}
+
 	.previewimg{
 		width:100%;
 	}

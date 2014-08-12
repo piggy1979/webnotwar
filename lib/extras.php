@@ -91,41 +91,62 @@ function featuredSlides($n){
 }
 
 
-function getPosts($count, $cats, $type, $bootwidth = 4){
-  // types = "preview, title, full"
+function getPosts($count, $cats, $type, $bootwidth = 4, $not = false){
+  // $count = amount of items
+  // $cats = array of the categories to include or exclude
+  // $type = "preview, title, full"
+  // $bootwidth = the bootstrap width to apply to a col-sm-# width
+  // $not = set to true to make the cats listed to be ignored rather than used.
 
   $args = array(
     'post_type'     => 'post',
     'orderby'       => 'date',
     'order'         => 'DESC',
-    'category__in'  => $cats,
-    'posts_per_page'=> $count
+    'posts_per_page'=> $count,
   );
+  
+  if($not){
+    $args['category__not_in'] = $cats;
+  }else{
+    $args['category__in'] = $cats;
+  }
 
   $query = new WP_Query($args);
 
   foreach($query->posts as $post){
-    $output .= "<div class='col-sm-".$bootwidth."'>";
-    if($type == 'preview') $output .= getPreview($post);
-    $output .= "</div>\n";
+    if($type == 'preview'){
+      $output .= "<div class='col-sm-".$bootwidth."'>";
+      $output .= getPreview($post);
+      $output .= "</div>\n";
+    }
+    if($type == 'title'){
+      $output .= "<ul>\n";
+      $output .= getTitles($post);
+      $output .= "</ul>\n";
+    }
+
   }
   return $output;
 
 }
 
-function getPreview($post){
-  $imageID = get_post_thumbnail_id($post->ID);
-  $image = wp_get_attachment_image_src($imageID, 'articlethumb');
-
-  $output .= "<img class='previewimg' src='".$image[0]."' alt='".$post->post_title."'>\n";
-  $output .= "<h2>" . $post->post_title . "</h2>\n";
-
-
-
+function getTitles($post){
+  $output = "<li><a href='".get_permalink($post->ID)."'>" . $post->post_title . "</a></li>\n";
   return $output;
 }
 
+function getPreview($post){
 
+  $imageID = get_post_thumbnail_id($post->ID);
+  $image = wp_get_attachment_image_src($imageID, 'articlethumb');
+
+  print_r($post);
+
+  $output .= "<img class='previewimg' src='".$image[0]."' alt='".$post->post_title."'>\n";
+  $output .= "<h2><a href='".get_permalink($post->ID)."'>" . $post->post_title . "</a></h2>\n";
+ // $output .= "<div class='".$post->author."'>" 
+  return $output;
+}
 
 
 
