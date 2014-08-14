@@ -1,3 +1,17 @@
 @media all and (min-width: 992px) {
+	header.banner{
 
+		nav.navbar-collapse{
+			ul#menu-primary-navigation{
+				transform: none;
+				background:none;
+				padding: 40px 0;
+			}
+		}
+		.navbar-brand{
+			width: 150px;
+			height: 92px;
+			background-size: 150px 92px;
+		}
+	}
 }

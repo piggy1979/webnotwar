@@ -11,8 +11,8 @@ $bodyfont: 'Open Sans', sans-serif;
 $bodycolor: #fff;
 $bodyaltcolor: #218d99;
 $bodydark: #343434;
-$linkcolor: #f1702f;
-$linkaltcolor:#c7a858;
+$linkcolor: #f1702f; //orange
+$linkaltcolor:#c7a858; // blueish green
 $fadecolor: #999;
 $bright: #fff;
 $headerfont:"refrigerator-deluxe",sans-serif;
@@ -57,3 +57,23 @@ button{
 	border:none;
 	position:relative;
 }
+p{
+	margin-bottom: $gap;
+}
+a.btn{
+	color: #fff;
+	display:inline-block;
+	background-color: $linkcolor;
+	text-transform: uppercase;
+	@include font-size(1.3);
+	padding: 12px 38px;
+	@include border-radius(3px);
+	font-weight:400;
+	margin-bottom: $gap;
+}
+
+
+
+
+
+

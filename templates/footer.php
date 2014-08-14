@@ -6,14 +6,15 @@
 
 	</div>
 
+	<div id="footermeta">
 	<ul>
-		<li>Contact Us</li>
-		<li>Terms and Conditions</li>
-		<li>Privacy Statement</li>
+		<li><a href="#">Contact Us</a></li>
+		<li><a href="#">Terms and Conditions</a></li>
+		<li><a href="#">Privacy Statement</a></li>
 	</ul>
 
-	<copy>&copy; Microsoft Corporations. All rights reserved.</copy>
-
+	<copy>&copy;<?php echo date('Y'); ?> Microsoft Corporations. All rights reserved. <img src="/wp-content/themes/webnotwar/assets/img/microsoft.png"></copy>
+	</div>
   </div>
 </footer>
 
