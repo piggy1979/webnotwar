@@ -79,20 +79,6 @@ main{
 				color:$linkaltcolor;
 			}
 		}
-		div.cat{
-			padding-left: 50px;
-			background: url("../img/default-cat.svg") no-repeat 0 0;
-			background-size: 40px 40px;
-			&.mobile{
-				background: url("../img/mobile-cat.svg") no-repeat 0 0;
-				background-size: 40px 40px;
-			}
-			&.opendata{
-				background: url("../img/open-cat.svg") no-repeat 0 0;
-				background-size: 40px 40px;
-			}
-
-		}
 
 	}
 

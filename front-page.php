@@ -2,7 +2,7 @@
   <?php get_template_part('templates/slideshow'); ?>
   <?php get_template_part('templates/page', 'header'); ?>
 
-	<section id="stories" class="col-sm-8 row">
+	<section id="stories" class="col-sm-8">
 		<h1>Stories</h1>
 		<div class="row">
 		<?php echo getPosts(2, array(1768),'preview', 6); ?>
@@ -14,7 +14,7 @@
 		<?php echo getPosts(12, array(1768, 350, 1739),'title', 12, true); ?>
 	</section>	
 
-	<section id="tutorials" class="col-sm-12 row">
+	<section id="tutorials" class="col-sm-12">
 		<h1>Latest Tutorials</h1>
 		<div class="row">
 		<?php echo getPosts(4, array(350, 1739),'preview' , 3); ?>
