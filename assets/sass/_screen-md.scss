@@ -14,4 +14,15 @@
 			background-size: 150px 92px;
 		}
 	}
+/* slideshow */
+.slidecontent h2{
+	@include font-size(5.5);
+}
+
+.slidecontent h3{
+	color: #fdc13d;
+	@include font-size(2);
+
+}
+
 }

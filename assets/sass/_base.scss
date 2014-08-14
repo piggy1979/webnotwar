@@ -76,8 +76,23 @@ div.wrap{
 	margin-left:auto;
 	margin-right: auto;
 }
+section{
+	position:relative;
+}
+div.headermsg{
+	position:absolute;
+	top:34px;
+	@include font-size(1.2);
+}
 
-
-
+/* icons */
+.news{
+	background: transparent url("../img/news.svg") no-repeat 0px 3px;
+	background-size: 12px 12px;
+	padding-left:20px;
+	&:after{
+		content: ' >';
+	}
+}
 
 

@@ -47,7 +47,22 @@
 			text-indent: -10000em;
 		}
 	}
+	div.headermsg{
+		right:20px;
+	}
 
+/* slideshow */
+.slidecontent{
+	left:50px;
+}
+.slidecontent h2{
+	@include font-size(3.5);
+}
+.slidecontent h3{
+	color: #fdc13d;
+	@include font-size(1.8);
+
+}
 
 }
 

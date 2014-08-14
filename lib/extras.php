@@ -76,13 +76,16 @@ function featuredSlides($n){
     $image = wp_get_attachment_image_src($imageID, 'featured');
 
 
-    $background = " style='background-image: url(".$image[0].")' ";
-    $output .= "<div class='slide' ".$background.">\n";
+    $background = "<img src='".$image[0]."' alt='".$post->post_title."'>";
+    $output .= "<div class='slide'>\n";
+    $output .= $background;
     $output .= "<div class='slidecontent'><div class='addpadding'>\n";
-    $output .= "<h2>".$post->post_title."</h2>\n";
-    if(get_post_meta($post->ID, 'url')[0] && get_post_meta($post->ID, 'link_title')[0] ){
-    $output .= "<a href='". get_post_meta($post->ID, 'url')[0] ."' class='btn bko'>". get_post_meta($post->ID, 'link_title')[0] ."</a>\n";
-    }
+
+    $content = get_post_meta($post->ID, 'slidecontent');
+   // $url     = get_post_meta($post->ID, 'url');
+
+
+    $output .= $content[0];
     $output .= "</div></div>\n";
     $output .= "</div>\n";
   }
@@ -148,7 +151,7 @@ function getPreview($post, $width){
     $output .= "<span class='author'>By <a href='".get_author_posts_url($post->post_author) ."' rel='Author'> " . get_the_author_meta('display_name', $post->post_author) . "</a></span>";
     $output .= "<span class='date'><time datetime='".get_the_date("Y-m-d", $post->ID)."'>".get_the_date("F j, Y", $post->ID)."</time></span>\n";
     $output .= "</div>\n";
-    $output .= "<div class='excerpt'><p>".limit_words($post->post_content, 40)."</p><p><a href='".get_permalink($post->ID)."' class='btn'>Read More</a></p></div>\n";
+    $output .= "<div class='excerpt'><p>".limit_words($post->post_content, 30)."</p><p><a href='".get_permalink($post->ID)."' class='btn'>Read More</a></p></div>\n";
   }else{
 
     $cats = get_the_tags($post->ID);

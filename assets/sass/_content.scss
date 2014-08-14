@@ -52,6 +52,10 @@ main{
 	#news{
 		font-weight:300;
 		@include font-size(1.3);
+		ul{
+			border-top: 1px solid #e5e5e5;
+			padding-top:$gap;
+		}
 		li{
 			margin-bottom: $gap;
 			margin-left: 14px;

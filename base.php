@@ -10,6 +10,9 @@
   <?php
     do_action('get_header');
     get_template_part('templates/header');
+    if(is_front_page()){
+       get_template_part('templates/slideshow');
+    }
   ?>
 
   <div class="wrap" role="document">

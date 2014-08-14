@@ -1,6 +1,5 @@
 <?php while (have_posts()) : the_post(); ?>
-  <?php get_template_part('templates/slideshow'); ?>
-  <?php get_template_part('templates/page', 'header'); ?>
+  <?php // get_template_part('templates/page', 'header'); ?>
 
 	<section id="stories" class="col-sm-8">
 		<h1>Stories</h1>
@@ -11,6 +10,7 @@
 
 	<section id="news" class='col-sm-4'>
 		<h1>News</h1>
+		<div class='headermsg'><a class="news" href="/news">View all News</a></div>
 		<?php echo getPosts(12, array(1768, 350, 1739),'title', 12, true); ?>
 	</section>	
 
