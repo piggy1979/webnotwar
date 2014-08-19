@@ -14,12 +14,11 @@
 
 		}
 
-.slidecontent h2{
-	@include font-size(9);
-}
-.slidecontent h3{
-	color: #fdc13d;
-	@include font-size(3.4);
-
-}
+	.slidecontent h2{
+		@include font-size(9);
+	}
+	.slidecontent h3{
+		color: #fdc13d;
+		@include font-size(3.4);
+	}
 }

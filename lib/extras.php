@@ -183,6 +183,21 @@ function getPreview($post, $width){
   return $output;
 }
 
+function sectionTitle($cat=1768){
+  // known ids.
+  // 1768 is for stories.
+  global $post;
+  $output= "";
+  $name = "";
+  if(has_category($cat)){
+    // it does contain the category so now fetch its title.
+    $name = get_cat_name($cat);
+
+    $output = "<div class='sectiontitle'><span class=''>".$name."</span></div>";
+  }
+  return $output;
+}
+
 
 function limit_words($string, $word_limit){
   $newstring = strip_tags($string);

@@ -10,10 +10,10 @@ header.banner{
 	}
 	button{
 		float:right;
-		margin-top:-5px;
+		margin-top:-2px;
 	}
 	button span.icon-bar{
-		width:30px;
+		width:26px;
 		height:3px;
 		background-color: $bodycolor;
 		display:block;
@@ -35,6 +35,8 @@ header.banner{
 		font-family: $headerfont;
 		float: left;
 		@include font-size(2);
+		text-transform:uppercase;
+		line-height:120%;
 		&:hover{
 			text-decoration: none;
 		}
@@ -55,7 +57,7 @@ header.banner{
 		@include transition-property(all);
 	}
 	nav.navbar-collapse.active{
-		max-height:200px;
+		max-height:440px;
 	}
 	nav ul#menu-primary-navigation{
 		position:relative;
@@ -70,9 +72,32 @@ header.banner{
 		@include transition-property(all);
 	}
 	nav.active ul#menu-primary-navigation{
-		max-height:200px;
+		max-height:440px;
 		height:100%;
 		@include rotateX(0deg);
 
 	}
+	#utils li.search{
+	/* form items for the search bar */
+	
+		form{
+			float:left;
+		}
+		input[type=submit]{
+			display:none;
+		}
+		input[type=text]{
+			outline: none;
+			border:none;
+			background-color:transparent;
+			padding:6px;
+			color:#fff;
+			font-size:12px;
+			height:30px;
+		}
+		&:focus{
+			outline: none;
+		}
+	}
+
 }

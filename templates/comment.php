@@ -1,14 +1,16 @@
-<?php echo get_avatar($comment, $size = '64'); ?>
-<div class="media-body">
-  <h4 class="media-heading"><?php echo get_comment_author_link(); ?></h4>
-  <time datetime="<?php echo get_comment_date('c'); ?>"><a href="<?php echo htmlspecialchars(get_comment_link($comment->comment_ID)); ?>"><?php printf(__('%1$s', 'roots'), get_comment_date(),  get_comment_time()); ?></a></time>
-  <?php edit_comment_link(__('(Edit)', 'roots'), '', ''); ?>
 
-  <?php if ($comment->comment_approved == '0') : ?>
-    <div class="alert alert-info">
-      <?php _e('Your comment is awaiting moderation.', 'roots'); ?>
-    </div>
-  <?php endif; ?>
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'webnotwar'; // required: replace example with your forum shortname
 
-  <?php comment_text(); ?>
-  <?php comment_reply_link(array_merge($args, array('depth' => $depth, 'max_depth' => $args['max_depth']))); ?>
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    

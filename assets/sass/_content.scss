@@ -79,14 +79,73 @@ main{
 			font-weight:800;
 			text-transform:uppercase;
 			line-height:150%;
+			font-weight:600;
 			a{
 				color:$linkaltcolor;
 			}
 		}
 
 	}
+	
+	/* main content items */
 
 }
 
 
+
+.sectiontitle{
+	background-color: $bodyaltcolor;
+	padding: 60px 0;
+	span{
+		display:block;
+		padding:0 20px;
+		max-width:1200px;
+		margin: 0 auto;
+		@include font-size(5);
+		font-weight:900;
+		color:#fff;
+		font-family: $headerfont;
+		text-transform:uppercase;
+	}	
+}
+.wp-post-image{
+	width:100%;
+	height: auto;
+	margin-top: #{$gap * 2};
+}
+.size-full{
+	max-width:100%;
+	height:auto;
+	margin: $gap 0;
+}
+/* iframe responsive */
+
+div.respondvid{
+	position:relative;
+	width:100%;
+	height:0;
+	padding-top:56.25%;
+	overflow:hidden;
+	iframe {
+		height:100%;
+		left:0;
+		top:0;
+		width:100%;
+		position:absolute;
+	}
+}
+
+
+article p{
+	line-height:150%;
+	@include font-size($h4size);
+}
+article p:first-child{
+		@include font-size($h3size);
+
+}
+#disqus_thread{
+	clear:both;
+	margin-bottom: $gap;
+}
 

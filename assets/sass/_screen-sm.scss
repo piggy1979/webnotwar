@@ -1,20 +1,49 @@
 @media all and (min-width: 768px) {
+	
+	.home-page .flexslider:before{
+		content:'';
+		height:90px;
+		display:block;
+	}
+	.wrap:before{
+		content:'';
+		height:90px;
+		display:block;
+	} 
+	.sectiontitle{
+		padding-top:140px;
+		margin-bottom:-90px;
+		span{
+			@include font-size(6);
+		}
+	}
 
+	.home-page .wrap:before{
+		display:none;
+	}
 	header.banner{
-		padding:50px 40px;
+		position:fixed;
+		width:100%;
+		z-index:20;
+		padding:12px 20px;
 		background-color: $linkcolor;
-		overflow:hidden;
 		.navbar-header{
 			padding: 0;
-			float: left;
 		}
 		nav.navbar-collapse{
-			float: left;
 			max-height: inherit;
+			position:absolute;
+			top:20px;
+			left:0;
+			width:100%;
+			z-index:100;
+			text-align:center;
+			@include transition-duration(0.3s);
+			@include transition-property(all);
 			ul#menu-primary-navigation{
+				display:inline-block;
 				transform: none;
 				background:none;
-				padding: 20px 0;
 				li{
 					display:inline-block;
 					text-align:center;
@@ -22,7 +51,7 @@
 						content: '/';
 						color: #f7b198;
 						display:inline-block;
-						@include font-size(2);
+						@include font-size(1.6);
 						font-weight: 300;
 					}
 					&:last-child:after{
@@ -32,24 +61,136 @@
 						display: inline-block;
 						padding: 2px 15px;
 						width:auto;
-						@include font-size(1.8);
+						@include font-size(1.6);
 					}
 				}
 			}
 		}
-		.navbar-toggle{display:none;}
-		.navbar-brand{
-			float: left;
-			width: 75px;
-			height: 46px;
-			background: transparent url("../img/wnw-logo.png") no-repeat;
-			background-size: 75px 46px;
-			text-indent: -10000em;
+
+		/* search bar and such */
+		#utils{
+			display:block;
+			position: absolute;
+			right: 10px;
+			top:25px;
+			z-index:200;
+			@include transition-duration(0.3s);
+			@include transition-property(all);
+			li{
+				float:left;
+				border:1px solid #f7b198;
+				@include border-radius(3px);
+				margin-left:3px;
+				overflow:hidden;
+				&.search{
+					background-color: $linkcolor;
+					form{
+						@include transition-duration(0.3s);
+						@include transition-property(width);
+						width:1px;
+					}
+					/* set active state and off state */
+					&.active{
+						form{
+							width:140px;
+						}
+					}
+
+				}
+			}
+			li a{
+				background-color:#fff;
+				color:$linkcolor;
+				padding: 4px 10px;
+			}
+			li.share{
+				border:1px solid #fff;
+				a{
+					font-size: 15px;
+					padding: 7px 20px;
+				}
+
+			}
 		}
+
+	#utils .search a, #utils .contact a{
+		background: $linkcolor url('../img/search.svg') no-repeat 50% 50%;
+		padding:8px;
+		text-indent: -1000em;
+		width:28px;
+		background-size: 16px 16px;
 	}
-	div.headermsg{
-		right:20px;
+	#utils .search a{float:left;}
+	#utils .contact a{
+		background: $linkcolor url('../img/mail.svg') no-repeat 50% 50%;
+		background-size: 18px 14px;
 	}
+
+
+
+	/* end of utils */
+	.navbar-toggle{display:none;}
+	.navbar-brand{
+		position:relative;
+		z-index:200;
+		width: 75px;
+		height: 46px;
+		background: transparent url("../img/wnw-logo.png") no-repeat;
+		background-size: 75px 46px;
+		text-indent: -10000em;
+	}
+
+
+} /* END OF DIV HEADER */
+
+
+#sociallinks{
+	display:block;
+	width:60px;
+	position:absolute;
+	right:17px;
+	top:55px;
+	z-index:199;
+	zoom: 1;
+
+/* main social bar items */
+	li{
+
+		a{
+			display:block;
+			width: 100%;
+			text-indent:-1000em;
+			height:0px;
+			padding:0
+		}
+		&.facebook a{
+			background: #446393 url(../img/social-facebook.png) no-repeat 50% 50%;
+			background-size: 20px 20px;
+			@include transition-duration(0.3s);
+			@include transition-property(height);
+		}
+		&.twitter a{
+			background: #23A5DB url(../img/social-twitter.png) no-repeat 50% 50%;
+			background-size: 20px 20px;
+			@include transition-duration(0.3s);
+			@include transition-delay(0.3s);
+			@include transition-property(height);
+		}
+		&.youtube a{
+			background: #CC403F url(../img/social-youtube.png) no-repeat 50% 50%;
+			background-size: 20px 20px;
+			@include transition-duration(0.3s);
+			@include transition-delay(0.6s);
+			@include transition-property(height);
+		}
+
+	}
+	&.active li a{height:50px;}
+
+}
+div.headermsg{
+	right:20px;
+}
 
 /* slideshow */
 .slidecontent{
@@ -61,7 +202,61 @@
 .slidecontent h3{
 	color: #fdc13d;
 	@include font-size(1.8);
+}
 
+/* FIXED SLIDER */
+.smalllogo{
+	display:block;
+	clear:both;
+	opacity:0;
+	height:0px;
+	position:relative;
+	z-index:20;
+	img{
+		width:75px;
+	}
+	@include scaleY(0);
+	@include transition-duration(0.3s);
+	@include transition-property(all);
+}
+.fixed .smalllogo{
+	@include scaleY(1);
+	height:17px;
+	margin-top:7px;
+}
+
+header.banner a.navbar-brand{
+	@include scaleY(1);
+	height:46px;
+	@include transition-duration(0.3s);
+	@include transition-property(all);
+}
+.fixed header.banner a.navbar-brand{
+	@include scaleY(0);
+	height:0px;
+}
+
+.fixed header.banner{
+	position:fixed;
+	top:0;
+	width:100%;
+	z-index:20;
+	.navbar-header{
+		padding: 0 20px;
+	}
+	.smalllogo{
+		opacity:1;
+	}
+	#utils{
+		top:10px;
+	}
+	nav.navbar-collapse{
+		top:5px;
+	}
+}
+
+.fixed header.banner #sociallinks{
+	top: 40px;
 }
 
 }

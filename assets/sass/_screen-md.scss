@@ -1,28 +1,92 @@
 @media all and (min-width: 992px) {
+
+	.home-page .flexslider:before{
+		content:'';
+		height:150px;
+		display:block;
+	}
+	.wrap:before{
+		content:'';
+		height:150px;
+		display:block;
+	}
+	.sectiontitle{
+		padding-top:190px;
+		margin-bottom:-150px;
+		span{
+			@include font-size(9);
+		}
+	}
+
 	header.banner{
 
 		nav.navbar-collapse{
+			top:50px;
 			ul#menu-primary-navigation{
 				transform: none;
 				background:none;
-				padding: 40px 0;
+				li a{
+					@include font-size(2);
+
+				}
+				padding: 2px 15px;
+
 			}
+
 		}
 		.navbar-brand{
 			width: 150px;
 			height: 92px;
 			background-size: 150px 92px;
 		}
+
+		/* REPOSITION THE UTILITIES MENU BASED ON SCREEN SIZE. Originals are in the small screen */
+		#utils{
+			top:48px;
+			right:20px;
+			li{
+				margin-left:10px;
+			}
+		}
+		#sociallinks{
+			position:absolute;
+			right:27px;
+			top:78px;
+		}
+
 	}
 /* slideshow */
 .slidecontent h2{
-	@include font-size(5.5);
+	@include font-size(6.5);
 }
 
 .slidecontent h3{
 	color: #fdc13d;
-	@include font-size(2);
+	@include font-size(2.5);
 
 }
 
+.smalllogo{
+	height:0px;
+	img{
+		width:150px;		
+	}
+}
+.fixed .smalllogo{
+	height:25px;
+	margin-top:0px;
+}
+
+header.banner a.navbar-brand{
+	height:94px;
+
+}
+.fixed header.banner a.navbar-brand{
+	height:0px;
+}
+.fixed header.banner{
+	nav.navbar-collapse{
+		top:10px;
+	}
+}
 }

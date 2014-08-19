@@ -13,9 +13,23 @@
     if(is_front_page()){
        get_template_part('templates/slideshow');
     }
-  ?>
+    $phone = "";
+    $mobileid = "";
+    if( wpmd_is_phone() ){
+      $phone = " mobile ";
+      $mobileid = " id='mobilecontainer' ";
+    }
 
-  <div class="wrap" role="document">
+
+
+
+  ?>
+  <?php
+    /* determine the category of the page if its a single page. */
+    echo sectionTitle();
+  ?>
+  <div <?php echo $mobileid; ?>class="wrap <?php echo $phone; ?>" role="document">
+
     <div class="content">
       <main class="main <?php echo roots_main_class(); ?>" role="main">
         <?php include roots_template_path(); ?>

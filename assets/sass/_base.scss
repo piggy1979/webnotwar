@@ -51,6 +51,10 @@ a{
 		color: $linkcolor;
 		text-decoration: none;
 	}
+	&:focus{
+		outline:none;
+		text-decoration: none;
+	}
 }
 button{
 	background:none;
@@ -94,5 +98,7 @@ div.headermsg{
 		content: ' >';
 	}
 }
-
-
+#utils, #sociallinks{
+	display:none;
+}
+.smalllogo{display:none;}
