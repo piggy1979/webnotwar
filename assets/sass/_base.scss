@@ -7,6 +7,16 @@
   font-size: $sizeValue + rem;
 }
 
+@mixin user-select($value: none, $cursor: arrow){
+	-webkit-touch-callout: $value;
+	-webkit-user-select: $value;
+	-khtml-user-select: $value;
+	-moz-user-select: $value;
+	-ms-user-select: $value;
+	user-select: $value;
+	cursor: $cursor;
+}
+
 $bodyfont: 'Open Sans', sans-serif;
 $bodycolor: #fff;
 $bodyaltcolor: #218d99;
@@ -24,7 +34,6 @@ $h2size:2;
 $h3size:1.8;
 $h4size:1.3;
 $h5size:1;
-
 $gap: 25px;
 
 input:focus,
@@ -83,6 +92,7 @@ div.wrap{
 section{
 	position:relative;
 }
+article{overflow:hidden;}
 div.headermsg{
 	position:absolute;
 	top:34px;
@@ -101,4 +111,9 @@ div.headermsg{
 #utils, #sociallinks{
 	display:none;
 }
-.smalllogo{display:none;}
+.smalllogo{
+	display:none;
+}
+footer{
+	position:relative;
+}

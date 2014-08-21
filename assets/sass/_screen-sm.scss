@@ -5,6 +5,9 @@
 		height:90px;
 		display:block;
 	}
+	.slidecontent{
+		padding-top:120px;
+	}
 	.wrap:before{
 		content:'';
 		height:90px;
@@ -13,8 +16,12 @@
 	.sectiontitle{
 		padding-top:140px;
 		margin-bottom:-90px;
+
 		span{
 			@include font-size(6);
+		}
+		.sectionlinks{
+			bottom: 60px;
 		}
 	}
 

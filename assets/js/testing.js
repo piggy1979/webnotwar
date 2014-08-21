@@ -8,14 +8,32 @@ $(document).ready(function(){
 		socialMenu();
 		fixedMenu();
 		responsiveIframe();
+		flex();
+		floatMenu();
 	}
 
+	function floatMenu(){
+
+
+	}
+
+	function flex(){
+
+		$h4s = $("#news h4.nav");
+		$h4s.last().clone().insertAfter($h4s.first());
+		$h4s.last().remove();
+
+		$("#tabs").flexslider({
+			selector: ".slide",
+			slideshow: false,
+			manualControls: "h4.nav"
+		});
+	}
 
 	function responsiveIframe(){
 		$iframe = $('article iframe');
 		$iframe.wrap("<div class='respondvid'></div>");
 	}
-
 
 	function fixedMenu(){
 		if(document.getElementById('mobilecontainer')){ return false;}
@@ -24,12 +42,18 @@ $(document).ready(function(){
 		var $header = $("header.banner");
 		var $body	= $("body");
 		var $image 	= $("a.navbar-brand");
-
+		var ypos = $("#news").offset().top;
+		var news = $("#sticky");
+		var $footer = $("footer");
+		var footerheight = $footer.innerHeight();
 		$image.after("<a class='smalllogo' href='/'><img src='/wp-content/themes/webnotwar/assets/img/smalllogo.png' width='150'></a>")
 
 		$(window).scroll(function(){
 			var $y = $window.scrollTop();
-		
+			var footerpos = $footer.offset().top;
+			console.log($y);
+			console.log(footerpos-screen.height);
+			// main navigation.
 			if($y >= 40){
 				//set fixed on the header.
 				$header.addClass('fixed');
@@ -38,8 +62,22 @@ $(document).ready(function(){
 			}else{
 				$header.removeClass('fixed');
 				$body.removeClass('fixed');
+			}
+
+			// side bar top position.
+			if($y>=(ypos-60)){
+				news.addClass("stick");
+			}else{
+				news.removeClass("stick");
+			}
+
+			// side bar bottom position.
+			if($y>=(footerpos-screen.height)){
+
+			}else{
 
 			}
+
 
 		});
 
@@ -93,7 +131,6 @@ $(document).ready(function(){
 
 
 	function mobileMenu(){
-
 		$(".navbar-toggle").on('click touch', function(evt){
 			$(this).toggleClass("active");
 			$("header.banner nav").toggleClass("active");

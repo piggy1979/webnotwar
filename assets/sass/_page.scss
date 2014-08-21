@@ -1,0 +1,37 @@
+.page-numbers{
+	overflow:hidden;
+	text-align:center;
+	margin-bottom:$gap*2;
+	li{
+		display:inline-block;
+	}
+	li a.prev{margin-right:45px;}
+	li a.next{margin-left:45px;}
+	li a.prev:before{
+		content: '< ';
+	}
+	li a.next:after{
+		content: ' >';
+	}
+	li a.page-numbers, li span.page-numbers{
+		color:$bodydark;
+		@include font-size(1.2);
+		@include border-radius(4px);
+		background-color: #f3f3f3;
+		display:block;
+		border: 1px solid #dedede;
+		padding: 5px 7px;
+		font-weight:500;
+		@include transition-duration(0.3s);
+		@include transition-property(all);
+	}
+	li a.prev, li a.next{
+		border-color:#fff;
+		background-color:#fff;
+	}
+	li span.current, li a.page-numbers:hover{
+		border-color: $bodyaltcolor;
+		background-color: $bodyaltcolor;
+		color: #fff;
+	}
+}

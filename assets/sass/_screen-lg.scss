@@ -21,4 +21,11 @@
 		color: #fdc13d;
 		@include font-size(3.4);
 	}
+
+#sticky.stick{
+	position:fixed;
+	top:60px;
+	width:362px;
+}
+
 }
