@@ -14,9 +14,7 @@ function roots_wp_title($title) {
   if (is_feed()) {
     return $title;
   }
-
   $title .= get_bloginfo('name');
-
   return $title;
 }
 add_filter('wp_title', 'roots_wp_title', 10);
@@ -76,14 +74,13 @@ function featuredSlides($n){
     $imageID = get_post_thumbnail_id($post->ID);
     $image = wp_get_attachment_image_src($imageID, 'featured');
 
-
     $background = "<img src='".$image[0]."' alt='".$post->post_title."'>";
     $output .= "<div class='slide'>\n";
     $output .= $background;
     $output .= "<div class='slidecontent'><div class='addpadding'>\n";
 
     $content = get_post_meta($post->ID, 'slidecontent');
-   // $url     = get_post_meta($post->ID, 'url');
+    // $url     = get_post_meta($post->ID, 'url');
 
 
     $output .= $content[0];
@@ -274,6 +271,7 @@ function sectionTitle($cat=null){
     $output .= "<a class='back' href='/news'>Back</a>\n";
   //  $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Tell Us Your Story</a>\n";
     $output .= "</div></div>\n";
+    return $output;
   }
   if($post->post_name == "stories"){
     $name = "Stories";
@@ -281,6 +279,7 @@ function sectionTitle($cat=null){
     $output .= "<div class='sectionlinks'>\n";
     $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Tell Us Your Story</a>\n";
     $output .= "</div></div>\n";
+    return $output;
   }
   if($post->post_name == "news"){
     $name = "News";
@@ -288,30 +287,102 @@ function sectionTitle($cat=null){
     $output .= "<div class='sectionlinks'>\n";
   //  $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Tell Us Your Story</a>\n";
     $output .= "</div></div>\n";
+    return $output;
   }
   if($post->post_name == "glossary-term"){
     $name = "Glossary";
     $output = "<div class='sectiontitle'><span class=''>".$name."</span>";
     $output .= "<div class='sectionlinks'>\n";
     $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Request a Definition</a>\n";
-    $output .= "</div></div>\n"; 
+    $output .= "</div>\n";
+    $output .= "</div>\n";
+    $output .= "<div id='gloslinks'><ul>\n";
+    ob_start();
+    ?>
+      <li><span class='filter' data-filter=".filternum">#</span></li>
+      <li><span class='filter' data-filter=".filtera">a</span></li> 
+      <li><span class='filter' data-filter=".filterb">b</span></li> 
+      <li><span class='filter' data-filter=".filterc">c</span></li> 
+      <li><span class='filter' data-filter=".filterd">d</span></li> 
+      <li><span class='filter' data-filter=".filtere">e</span></li> 
+      <li><span class='filter' data-filter=".filterf">f</span></li> 
+      <li><span class='filter' data-filter=".filterg">g</span></li> 
+      <li><span class='filter' data-filter=".filterh">h</span></li> 
+      <li><span class='filter' data-filter=".filteri">i</span></li> 
+      <li><span class='filter' data-filter=".filterj">j</span></li> 
+      <li><span class='filter' data-filter=".filterk">k</span></li> 
+      <li><span class='filter' data-filter=".filterl">l</span></li> 
+      <li><span class='filter' data-filter=".filterm">m</span></li> 
+      <li><span class='filter' data-filter=".filtern">n</span></li> 
+      <li><span class='filter' data-filter=".filtero">o</span></li> 
+      <li><span class='filter' data-filter=".filterp">p</span></li> 
+      <li><span class='filter' data-filter=".filterq">q</span></li> 
+      <li><span class='filter' data-filter=".filterr">r</span></li> 
+      <li><span class='filter' data-filter=".filters">s</span></li> 
+      <li><span class='filter' data-filter=".filtert">t</span></li> 
+      <li><span class='filter' data-filter=".filteru">u</span></li> 
+      <li><span class='filter' data-filter=".filterv">v</span></li> 
+      <li><span class='filter' data-filter=".filterw">w</span></li> 
+      <li><span class='filter' data-filter=".filterx">x</span></li> 
+      <li><span class='filter' data-filter=".filtery">y</span></li> 
+      <li><span class='filter' data-filter=".filterz">z</span></li> 
+
+    <?php 
+    $output .= ob_get_clean();
+    $output .= "</ul></div>\n"; 
+    return $output;
   }
+  // EVENTS
+  if($post->post_type == 'ai1ec_event'){
+    $name = "Events";
+    $output .= "<div class='sectiontitle'><span>".$name."</span></div>";
+    return $output;
+  }
+
+  if($post->post_name == 'about'){
+    $name = get_post_meta($post->ID, 'header_replacement');
+    $output .= "<div class='sectiontitle'>".$name."</div>";
+    return $output;  
+  }
+
+  // default
+  if(!is_front_page()){
+    $name = $post->post_title;
+    $output = "<div class='sectiontitle'><span class=''>".$name."</span>";
+  //  $output .= "<div class='sectionlinks'>\n";
+  //  $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Tell Us Your Story</a>\n";
+    $output .= "</div>\n";
+  }
+
   return $output;
 }
 
 function getGlossary(){
   $args = array(
       'post_type'       =>  'glossary',
-      'posts_per_page'  =>  -1
+      'posts_per_page'  =>  -1,
+      'order'           => 'ASC',
+      'orderby'         => 'title'
   );
   $query = new WP_Query($args);
+  $output = "<dl><div>\n";
 
   foreach($query->posts as $post){
-    $output .= "<div class='term'>\n";
-    $output .= "<h3>" . $post->post_title . "</h3>\n";
-    $output .= "<p>" .strip_tags($post->post_content) . "</p>";
-    $output .= "</div>\n";
+    if(strcasecmp($post->post_title[0],$currentAlpha) != 0 ){
+      $output .= "</div>\n";
+      $currentAlpha = $post->post_title[0];
+      $currentAlpha = strtolower(preg_replace("/[\d]/","#",$currentAlpha));
+      $current = $currentAlpha;
+      if($currentAlpha == "#"){$current = "num";}
+      $output .= "<div class='mix filter".$current."'>\n";
+      $output .= "<h3 id='".$currentAlpha."'>". $currentAlpha . "</h3>\n";
+    }
+    $output .= "<dt>" . $post->post_title . "</dt>\n";
+    $output .= "<dd>" .strip_tags($post->post_content) . "</dd>\n";
+
+
   }
+  $output .= "</div></dl>\n";
   return $output;
 }
 

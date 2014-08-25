@@ -1,0 +1,38 @@
+#sticky{
+	.gform_wrapper form li{
+		margin-bottom: 10px;
+	}
+	h5{
+		color: #fff;
+		background-color: $linkcolor;
+		padding:12px $gap;
+		font-weight:600;
+	}
+	input[type=text], textarea{
+		width:100%
+	}
+	.ginput_container{
+		background-color: #f6f4f0;
+		@include border-radius(6px);
+		padding:4px;
+		input, textarea{
+			border:1px solid #ddd8ce;
+			@include border-radius(3px);
+			padding:5px 5px;
+			@include font-size(1.4);
+		}
+	}
+	input[type=submit]{
+		@include border-radius(4px);
+		background-color: $linkcolor;
+		color:#fff;
+		font-weight:600;
+		padding:7px 20px;
+		border:0;
+		float:right;
+	}
+}
+span.error{
+	font-weight: 600;
+	color:#cc2222;
+}

@@ -8,14 +8,16 @@
 	.slidecontent{
 		padding-top:120px;
 	}
+	/*
 	.wrap:before{
 		content:'';
 		height:90px;
 		display:block;
 	} 
+	*/
 	.sectiontitle{
 		padding-top:140px;
-		margin-bottom:-90px;
+	/*	margin-bottom:-90px;*/
 
 		span{
 			@include font-size(6);
