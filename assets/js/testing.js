@@ -2140,8 +2140,6 @@ $(document).ready(function(){
 
 	function init(){
 
-
-
 		mixUp();
 		mobileMenu();
 		searchBar();
@@ -2149,11 +2147,8 @@ $(document).ready(function(){
 		fixedMenu();
 		responsiveIframe();
 		flex();
-		floatMenu();
+	//	floatMenu();
 		formValidation();
-
-
-
 
 	}
 
@@ -2232,7 +2227,10 @@ $(document).ready(function(){
 		var $header = $("header.banner");
 		var $body	= $("body");
 		var $image 	= $("a.navbar-brand");
-		var ypos = $("#news").offset().top;
+		var ypos = 0;
+		if(document.getElementById('news')){ 
+			ypos = $("#news").offset().top;
+		}
 		var news = $("#sticky");
 		var $footer = $("footer");
 		var footerheight = $footer.innerHeight();
@@ -2259,17 +2257,8 @@ $(document).ready(function(){
 				news.removeClass("stick");
 			}
 
-			// side bar bottom position.
-			if($y>=(footerpos-screen.height)){
-
-			}else{
-
-			}
-
 
 		});
-
-
 	}
 
 

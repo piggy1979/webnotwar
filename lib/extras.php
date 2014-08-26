@@ -58,6 +58,42 @@ register_post_type('featured',
     'supports' => array('title', 'thumbnail', 'revisions')
   )
 );
+
+register_post_type('tutorial',
+  array(
+    'labels'  => array(
+      'name'      => __('Tutorials'),
+      'singular_name' => __('Tutorial')
+      ),
+    'public'    => true,
+    'has_archive' => true,
+    'menu_position' => 5,
+    'publicly_queryable' => true,
+    'supports' => array('title', 'thumbnail', 'revisions', 'editor')
+  )
+);
+
+  register_taxonomy(
+    'tutorial_cats',
+    'tutorial',
+    array(
+      'labels' => array(
+        'name' => "Types of Tutorials",
+        'add_new_item' => 'Add New Tutorial Type',
+        'new_item_name' => 'New Tutorial Type'
+      ),
+      'show_ui' => true,
+      'show_admin_column' => true,
+      'show_tagcloud' => false,
+      'hierarchical' => true
+    )
+  );
+
+
+
+
+
+
 }
 add_action('init', 'create_post_types');
 
@@ -143,6 +179,33 @@ function getNewsItems($post, $width){
   return $output;
 }
 
+function getTutorials($count, $cats, $type, $bootwidth = 4, $not = false, $offset = null){
+
+  $args = array(
+    'post_type'     => 'tutorial',
+    'orderby'       => 'date',
+    'order'         => 'DESC',
+    'posts_per_page'=> $count,
+    'offset'        => $offset
+  );
+
+  $query = new WP_Query($args);
+
+  foreach($query->posts as $post){
+    if($type == 'preview'){
+      $output .= "<div class='col-sm-".$bootwidth."'>";
+      $output .= getPreview($post, $bootwidth);
+      $output .= "</div>\n";
+    }
+    if($type == 'title'){
+      $output .= getTitles($post);
+    }
+
+  }
+  if($type == 'title') $output = "<ul>" . $output . "</ul>\n";
+  return $output;
+
+}
 
 
 function getPosts($count, $cats, $type, $bootwidth = 4, $not = false, $offset = null){
@@ -341,7 +404,7 @@ function sectionTitle($cat=null){
 
   if($post->post_name == 'about'){
     $name = get_post_meta($post->ID, 'header_replacement');
-    $output .= "<div class='sectiontitle'>".$name."</div>";
+    $output .= "<div class='sectiontitle'><div class='container abouttitle'>".$name[0]."</div></div>";
     return $output;  
   }
 

@@ -18,9 +18,9 @@
 	<section id="tutorials" class="col-sm-12">
 		<h1>Latest Tutorials</h1>
 		<div class="row">
-		<?php echo getPosts(4, array(350, 1739),'preview' , 3); ?>
+		<?php echo getTutorials(4, array(350, 1739),'preview' , 3); ?>
 		</div>
 	</section>
 
-  <?php // get_template_part('templates/content', 'page'); ?>
+<?php // get_template_part('templates/content', 'page'); ?>
 <?php endwhile; ?>
