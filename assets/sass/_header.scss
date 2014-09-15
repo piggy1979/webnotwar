@@ -75,11 +75,9 @@ header.banner{
 		max-height:440px;
 		height:100%;
 		@include rotateX(0deg);
-
 	}
 	#utils li.search{
 	/* form items for the search bar */
-	
 		form{
 			float:left;
 		}
@@ -105,7 +103,6 @@ header.banner{
 	color: #fff;
 	line-height:150%;
 	@include font-size(3);
-	font-weight:300;
 	padding-top: $gap*2;
 	padding-bottom: $gap*2; 
 	strong{
@@ -116,4 +113,33 @@ header.banner{
 	}
 
 
+}
+.subcontainer{
+	background-color: $bodydark;
+	height: 60px;
+    margin-bottom: 50px;
+    margin-top: -60px;
+	.container{
+		padding:0;
+	}
+}
+.subcontainer .container ul{
+	text-align:center;
+
+	li{
+		display:inline-block;
+		padding: 0 10px;
+		a{
+			@include font-size(2);
+			color: #958c8c;
+			text-transform:uppercase;
+			font-family: $headerfont;
+			&:hover{
+				color:$linkaltcolor;
+			}
+		}
+		&.current_page_item a{
+			color:$linkaltcolor;
+		}
+	}
 }

@@ -2237,6 +2237,8 @@ $(document).ready(function(){
 		$image.after("<a class='smalllogo' href='/'><img src='/wp-content/themes/webnotwar/assets/img/smalllogo.png' width='150'></a>")
 
 		$(window).scroll(function(){
+			if( $(document).height()  < $(window).height()+800 ) return;
+
 			var $y = $window.scrollTop();
 			var footerpos = $footer.offset().top;
 			// main navigation.

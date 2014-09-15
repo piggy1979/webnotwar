@@ -85,6 +85,13 @@ a.btn{
 	@include border-radius(3px);
 	font-weight:400;
 	margin-bottom: $gap;
+	@include transition-duration(0.3s);
+	@include transition-property(all);
+	@include box-shadow(0px 3px #fff);
+	&:hover{
+		@include box-shadow(0px 3px darken($bodyaltcolor, 10%));
+		background-color: $bodyaltcolor;
+	}
 }
 div.wrap{
 	max-width:1200px;
@@ -96,9 +103,8 @@ section{
 }
 article{overflow:hidden;}
 div.headermsg{
-	position:absolute;
-	top:34px;
 	@include font-size(1.2);
+	padding-bottom:$gap;
 }
 
 /* icons */

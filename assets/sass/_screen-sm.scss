@@ -45,35 +45,74 @@
 			top:20px;
 			left:0;
 			width:100%;
-			z-index:100;
+			z-index:60;
 			text-align:center;
 			@include transition-duration(0.3s);
 			@include transition-property(all);
+		
 			ul#menu-primary-navigation{
 				display:inline-block;
-				transform: none;
-				background:none;
+				-webkit-transform:none;
+				transform:none;
+				background:none; 
 				li{
-					display:inline-block;
+					
+					display:inline-block; 
 					text-align:center;
+					
+					
 					&:after{
 						content: '/';
 						color: #f7b198;
 						display:inline-block;
 						@include font-size(1.6);
 						font-weight: 300;
+						vertical-align:top;
+						margin-top:4px;
 					}
+				
 					&:last-child:after{
 						content: '';
 					}
+				
 					a{
 						display: inline-block;
 						padding: 2px 15px;
+						height:19px;
+						overflow:hidden;
+						text-align:center;
 						width:auto;
+						white-space:nowrap;
 						@include font-size(1.6);
+						span{
+							-webkit-font-smoothing: antialiased;
+							-moz-font-smoothing: antialiased;
+							font-smoothing: antialiased;
+							display:inline-block;
+							position:relative;
+							@include transition-duration(0.5s);
+							@include transition-property(all);
+							&:before{
+								content: attr(data-hover);
+								font-weight:700;
+								color: lighten($linkcolor, 35%);
+								position:absolute;
+								top:100%;
+								@include translate3d(0px 0px 0px);
+							}
+						}
+						&:hover span{
+							@include translateY(-100%);
+						}
+						&:hover span:before{
+						/*	@include translateY(-100%); */
+						}
+
 					}
+					
 				}
 			}
+			
 		}
 
 		/* search bar and such */
@@ -128,11 +167,19 @@
 		text-indent: -1000em;
 		width:28px;
 		background-size: 16px 16px;
+		@include transition-duration(0.2s);
+		@include transition-property(background-size);
+		&:hover{
+			background-size: 19px 19px;
+		}
 	}
 	#utils .search a{float:left;}
 	#utils .contact a{
 		background: $linkcolor url('../img/mail.svg') no-repeat 50% 50%;
 		background-size: 18px 14px;
+		&:hover{
+			background-size: 21px 17px;
+		}
 	}
 
 
@@ -220,7 +267,8 @@ div.headermsg{
 	opacity:0;
 	height:0px;
 	position:relative;
-	z-index:20;
+	z-index:200;
+	width:75px;
 	img{
 		width:75px;
 	}
@@ -263,7 +311,7 @@ header.banner a.navbar-brand{
 		top:5px;
 	}
 }
-
+.sectiontitle .container{@include font-size(3);}
 .fixed header.banner #sociallinks{
 	top: 40px;
 }

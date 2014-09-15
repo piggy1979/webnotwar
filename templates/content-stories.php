@@ -1,5 +1,4 @@
 <?php while (have_posts()) : the_post(); ?>
-
 <?php 
 function processArray($postid, $ids){
   $nonnews =  array(1768, 350, 1739);
@@ -25,7 +24,6 @@ if( !processArray($post->ID, $ids) && $post->post_type == 'post' ){
   <article>
 
 
-
   <section id="stories" class="col-sm-8">
       <?php if ( has_post_thumbnail() ) {
         the_post_thumbnail('large');
@@ -46,11 +44,8 @@ if( !processArray($post->ID, $ids) && $post->post_type == 'post' ){
 
     <div class="slide">
     <?php 
-    if($post->post_type == "stories"){
-      echo getPosts(5, 'stories','title', 12, false); 
-    }else{
-      echo getPosts(5, array(1768, 350, 1739),'title', 12, false); 
-    }
+    
+    echo getPosts(5, 'stories','title', 12, false); 
 
     ?>
     </div>
@@ -58,11 +53,7 @@ if( !processArray($post->ID, $ids) && $post->post_type == 'post' ){
     <div class="slide">
 
     <?php 
-    if($post->post_type == "stories"){
-      wpp_get_mostpopular("range=weekly&limit=5&post_type=stories"); 
-    }else{
-      wpp_get_mostpopular("range=weekly&limit=5&cat=1768");     
-    }
+    wpp_get_mostpopular("range=weekly&limit=5&post_type=stories");
     ?>
     </div>
   </div><!-- end of tabs -->

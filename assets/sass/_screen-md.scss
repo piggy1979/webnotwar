@@ -71,6 +71,7 @@
 
 .smalllogo{
 	height:0px;
+	width:150px;
 	img{
 		width:150px;		
 	}
@@ -92,5 +93,7 @@ header.banner a.navbar-brand{
 		top:10px;
 	}
 }
+
+.sectiontitle .container{@include font-size(3.5);}
 
 }

@@ -1,18 +1,21 @@
 @media all and (min-width: 1200px) {
-		div.cat{
-			padding-left: 50px;
-			background: url("../img/default-cat.svg") no-repeat 0 0;
+	div.cat{
+		padding-left: 50px;
+		background: url("../img/default-cat.svg") no-repeat 0 0;
+		background-size: 40px 40px;
+		&.mobile{
+			background: url("../img/mobile-cat.svg") no-repeat 0 0;
 			background-size: 40px 40px;
-			&.mobile{
-				background: url("../img/mobile-cat.svg") no-repeat 0 0;
-				background-size: 40px 40px;
-			}
-			&.opendata{
-				background: url("../img/open-cat.svg") no-repeat 0 0;
-				background-size: 40px 40px;
-			}
-
 		}
+		&.opendata{
+			background: url("../img/open-cat.svg") no-repeat 0 0;
+			background-size: 40px 40px;
+		}
+	}
+	.tutorialprimary div.cat{
+		background:none;
+		padding-left:0;
+	}
 
 	.slidecontent h2{
 		@include font-size(9);
@@ -22,10 +25,14 @@
 		@include font-size(3.4);
 	}
 
-#sticky.stick{
-	position:fixed;
-	top:60px;
-	width:362px;
-}
-
+	#sticky.stick{
+		position:fixed;
+		top:60px;
+		width:362px;
+	}
+	div.headermsg{
+		position:absolute;
+		top:34px;
+		@include font-size(1.2);
+	}
 }

@@ -2,7 +2,7 @@
 
   <section id="stories" class="col-sm-8 storypage">
 
-		<div class="row">
+		<div class="">
 		<?php echo getNews(6, array(1768, 350, 1739),'preview', 12, true); ?>
 		</div>
 

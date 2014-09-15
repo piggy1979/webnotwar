@@ -59,6 +59,21 @@ register_post_type('featured',
   )
 );
 
+register_post_type('stories',
+  array(
+    'labels'  => array(
+      'name'      => __('Stories'),
+      'singular_name' => __('Story')
+      ),
+    'public'    => true,
+    'has_archive' => true,
+    'menu_position' => 5,
+    'publicly_queryable' => true,
+    'supports' => array('title', 'thumbnail', 'revisions', 'editor'),
+    'taxonomies' => array('post_tag')
+  )
+);
+
 register_post_type('tutorial',
   array(
     'labels'  => array(
@@ -69,7 +84,8 @@ register_post_type('tutorial',
     'has_archive' => true,
     'menu_position' => 5,
     'publicly_queryable' => true,
-    'supports' => array('title', 'thumbnail', 'revisions', 'editor')
+    'supports' => array('title', 'thumbnail', 'revisions', 'editor'),
+    'taxonomies' => array('post_tag')
   )
 );
 
@@ -126,6 +142,10 @@ function featuredSlides($n){
 
   return $output;
 }
+
+
+
+
 function getNews($count, $cats, $type, $bootwidth = 4, $not = false){
     $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
     $big  = 99999999;
@@ -179,7 +199,9 @@ function getNewsItems($post, $width){
   return $output;
 }
 
-function getTutorials($count, $cats, $type, $bootwidth = 4, $not = false, $offset = null){
+function getTutorials($count, $cats, $type, $bootwidth = 4, $offset = null, $pagnate = false){
+
+  $big  = 99999999;
 
   $args = array(
     'post_type'     => 'tutorial',
@@ -189,22 +211,68 @@ function getTutorials($count, $cats, $type, $bootwidth = 4, $not = false, $offse
     'offset'        => $offset
   );
 
-  $query = new WP_Query($args);
 
+  // if pagnate is checked fire up the pagination.
+  if($pagnate === true){
+    $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
+    $args['paged'] = $paged;
+  }
+  // we are sorting by tags
+  //$tag = 'unity';
+
+  $tag = ( get_query_var( 'tagged' ) ) ? get_query_var( 'tagged' ) : null;
+  $cat = ( get_query_var( 'cattut' ) ) ? get_query_var( 'cattut' ) : null;
+
+  if( ($tag != null) && ($tag != "All")) {
+    $args['tag'] = $tag;
+  }
+
+  // sort by category
+  if(($cat != null) && ($cat != "All Categories")){
+    $args['tax_query'] = array(array(
+        'taxonomy'  =>  'tutorial_cats',
+        'field'     =>  'slug',
+        'terms'     =>  $cat
+      ));
+  }
+
+
+  $query = new WP_Query($args);
+  $count = 1;
+  $output .= "<div class='clear'>\n";
   foreach($query->posts as $post){
     if($type == 'preview'){
-      $output .= "<div class='col-sm-".$bootwidth."'>";
+      
+      $output .= "<div class='col-sm-".$bootwidth." ctastate'>";
       $output .= getPreview($post, $bootwidth);
       $output .= "</div>\n";
+
+      if(  $count%4 == 0 && $count > 1 ) $output .= "</div><div class='clear'>\n";
+      $count++;
     }
     if($type == 'title'){
       $output .= getTitles($post);
     }
 
   }
+  $output .= "</div>\n";
   if($type == 'title') $output = "<ul>" . $output . "</ul>\n";
-  return $output;
 
+  if($pagnate === true){
+    $total = $query->max_num_pages;
+    $output .= paginate_links(array(
+      'base'          => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+      'format'        => $format,
+      'current'       => max( 1, $paged ),
+      'total'         => $total,
+      'mid_size'      => 3,
+      'type'          => 'list',
+      'prev_text'     => 'Previous',
+      'next_text'     => 'Next',
+    ));
+  }
+
+  return $output;
 }
 
 
@@ -215,22 +283,23 @@ function getPosts($count, $cats, $type, $bootwidth = 4, $not = false, $offset = 
   // $bootwidth = the bootstrap width to apply to a col-sm-# width
   // $not = set to true to make the cats listed to be ignored rather than used.
 
+  $posttype = 'post';
+  if($cats == "stories") $posttype = 'stories';
   $args = array(
-    'post_type'     => 'post',
+    'post_type'     => $posttype,
     'orderby'       => 'date',
     'order'         => 'DESC',
     'posts_per_page'=> $count,
     'offset'        => $offset
   );
   
-  if($not){
+  if($not === true){
     $args['category__not_in'] = $cats;
-  }else{
+  }else if($not !== false){
     $args['category__in'] = $cats;
   }
 
   $query = new WP_Query($args);
-
   foreach($query->posts as $post){
     if($type == 'preview'){
       $output .= "<div class='col-sm-".$bootwidth."'>";
@@ -259,6 +328,12 @@ function getPreview($post, $width){
 
   $imageID = get_post_thumbnail_id($post->ID);
   $image = wp_get_attachment_image_src($imageID, $thumb);
+
+  if(!$image[0]){
+    // there is no image so lets add a placeholder.
+    $image[0] = "/images/placeholder-710x380.jpg";
+  }
+
 
   $output .= "<img class='previewimg' src='".$image[0]."' alt='".$post->post_title."'>\n";
   if($width >= 4){
@@ -310,15 +385,17 @@ function sectionTitle($cat=null){
   foreach($cats as $category){
     $ids[] = $category->cat_ID;
   }
-
-  $output= "";
+  $subnav = "";
+  if($post->post_parent != 0){
+    $subnav .= getParentElements($post->post_parent);
+  }
   $name = "";
 
   // stories!
   if( in_array(1768, $ids) ){
     // it does contain the category so now fetch its title.
     $name = "Stories";
-    $output = "<div class='sectiontitle'><span class=''>".$name."</span>";
+    $output .= "<div class='sectiontitle'>".$subnav."<span class=''>".$name."</span>";
     $output .= "<div class='sectionlinks'>\n";
     $output .= "<a class='back' href='/stories'>Back</a>\n";
     $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Tell Us Your Story</a>\n";
@@ -329,24 +406,32 @@ function sectionTitle($cat=null){
   if( !in_array(array(1768, 350, 1739), $ids) && $post->post_type == 'post' ){
     // it does contain the category so now fetch its title.
     $name = "News";
-    $output = "<div class='sectiontitle'><span class=''>".$name."</span>";
+    $output .= "<div class='sectiontitle'>".$subnav."<span class=''>".$name."</span>";
     $output .= "<div class='sectionlinks'>\n";
     $output .= "<a class='back' href='/news'>Back</a>\n";
   //  $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Tell Us Your Story</a>\n";
     $output .= "</div></div>\n";
     return $output;
   }
-  if($post->post_name == "stories"){
+  if($post->post_type == "stories"){
     $name = "Stories";
-    $output = "<div class='sectiontitle'><span class=''>".$name."</span>";
+    $output .= "<div class='sectiontitle'>".$subnav."<span class=''>".$name."</span>";
     $output .= "<div class='sectionlinks'>\n";
     $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Tell Us Your Story</a>\n";
     $output .= "</div></div>\n";
     return $output;
   }
   if($post->post_name == "news"){
-    $name = "News";
-    $output = "<div class='sectiontitle'><span class=''>".$name."</span>";
+    $name = "From the Community";
+    $output .= "<div class='sectiontitle'>".$subnav."<span class=''>".$name."</span>";
+    $output .= "<div class='sectionlinks'>\n";
+  //  $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Tell Us Your Story</a>\n";
+    $output .= "</div></div>\n";
+    return $output;
+  }
+  if($post->post_name == "events"){
+    $name = "Calendar of Events";
+    $output .= "<div class='sectiontitle'>".$subnav."<span class=''>".$name."</span>";
     $output .= "<div class='sectionlinks'>\n";
   //  $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Tell Us Your Story</a>\n";
     $output .= "</div></div>\n";
@@ -354,7 +439,7 @@ function sectionTitle($cat=null){
   }
   if($post->post_name == "glossary-term"){
     $name = "Glossary";
-    $output = "<div class='sectiontitle'><span class=''>".$name."</span>";
+    $output .= "<div class='sectiontitle'>".$subnav."<span class=''>".$name."</span>";
     $output .= "<div class='sectionlinks'>\n";
     $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Request a Definition</a>\n";
     $output .= "</div>\n";
@@ -398,26 +483,50 @@ function sectionTitle($cat=null){
   // EVENTS
   if($post->post_type == 'ai1ec_event'){
     $name = "Events";
-    $output .= "<div class='sectiontitle'><span>".$name."</span></div>";
+    $output .= "<div class='sectiontitle'>".$subnav."<span>".$name."</span></div>";
     return $output;
   }
 
   if($post->post_name == 'about'){
     $name = get_post_meta($post->ID, 'header_replacement');
-    $output .= "<div class='sectiontitle'><div class='container abouttitle'>".$name[0]."</div></div>";
+    $output .= "<div class='sectiontitle'>".$subnav."<div class='container abouttitle'>".$name[0]."</div></div>";
     return $output;  
   }
-
+  if($post->post_name == 'tutorials'){
+    $name = "Tutorials";
+    $output .= "<div class='sectiontitle'>".$subnav."<span>".$name."</span></div>";
+    return $output;  
+  }
+  if(is_search()){
+    $name = "Search Results";
+    $output .= "<div class='sectiontitle'>".$subnav."<span>".$name."</span></div>";
+    return $output;  
+  }
   // default
   if(!is_front_page()){
     $name = $post->post_title;
-    $output = "<div class='sectiontitle'><span class=''>".$name."</span>";
+    $output .= "<div class='sectiontitle'>".$subnav."<span class='container'>".$name."</span>";
   //  $output .= "<div class='sectionlinks'>\n";
   //  $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Tell Us Your Story</a>\n";
     $output .= "</div>\n";
   }
 
   return $output;
+}
+
+function getParentElements($id){
+
+  $args = array(
+    'child_of'  => $id,
+    'depth'     => 1,
+    'echo'      => 0,
+    'title_li'  => __('')
+
+  );
+  $output .= "<div class='subcontainer'><div class='container'><ul>\n";
+  $output .= wp_list_pages($args);
+  $output .= "</ul></div></div>\n";
+ return $output;
 }
 
 function getGlossary(){
@@ -448,6 +557,23 @@ function getGlossary(){
   $output .= "</div></dl>\n";
   return $output;
 }
+function showCats($type){
+  $args = array(
+    'taxonomy' => $type
+  );
+
+  $cats = get_categories($args);
+  $output .= "<select name='cattut' id='cattut'>\n";
+  $output .= "<option>All Categories</option>\n";
+
+  foreach($cats as $cat){
+    $output .= "<option value='". $cat->slug ."' data-value=". $cat->slug .">" . $cat->name . "</option>\n";
+  }
+  $output .= "</select>\n";
+  return $output;
+  //print_r($cats);
+}
+
 
 
 
@@ -463,4 +589,18 @@ function limit_words($string, $word_limit){
 
   
     return implode(" ",array_splice($words,0,$word_limit));
+}
+  
+function add_query_vars_filter( $qvars ){
+  $qvars[] = "cattut";
+  $qvars[] = "tagged";
+  return $qvars;
+}
+add_filter( 'query_vars', 'add_query_vars_filter',10,1 );
+
+add_filter('next_posts_link_attributes', 'posts_link_attributes');
+add_filter('previous_posts_link_attributes', 'posts_link_attributes');
+
+function posts_link_attributes() {
+    return 'class="page-numbers"';
 }

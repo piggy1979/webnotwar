@@ -1,4 +1,4 @@
-    <?php
+   <?php
     $phone = "";
     if( wpmd_is_phone() ){
       $phone = " mobile ";
@@ -22,7 +22,7 @@
     <ul id="menu-primary-navigation" class="nav navbar-nav">
       <?php
         if (has_nav_menu('primary_navigation')) :
-          wp_nav_menu(array('theme_location' => 'primary_navigation', 'items_wrap' => '%3$s' ,'menu_class' => 'nav navbar-nav'));
+          wp_nav_menu(array('theme_location' => 'primary_navigation', 'items_wrap' => '%3$s' ,'menu_class' => 'nav navbar-nav' ));
         endif;
       ?>
         <li class='contact'><a href="/contact">Contact</a></li>
@@ -66,7 +66,7 @@
     <nav class="collapse navbar-collapse" role="navigation">
       <?php
         if (has_nav_menu('primary_navigation')) :
-          wp_nav_menu(array('theme_location' => 'primary_navigation', 'menu_class' => 'nav navbar-nav'));
+          wp_nav_menu(array('theme_location' => 'primary_navigation', 'menu_class' => 'nav navbar-nav', 'walker' => new Nav_Walker_Nav_Menu() ));
         endif;
       ?>
     </nav>
