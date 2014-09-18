@@ -5,9 +5,7 @@
 		height:90px;
 		display:block;
 	}
-	.slidecontent{
-		padding-top:120px;
-	}
+
 	/*
 	.wrap:before{
 		content:'';
@@ -252,6 +250,7 @@ div.headermsg{
 .slidecontent{
 	left:50px;
 }
+.flexslider .slide{margin-top:90px;}
 .slidecontent h2{
 	@include font-size(3.5);
 }

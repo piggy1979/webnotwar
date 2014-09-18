@@ -136,4 +136,5 @@ html[xmlns] .slides {display: block;}
 		opacity: 1;
 	/*@include translateX(0px);*/
 }
-
+.slides{overflow:hidden;}
+.slide{margin-top:0px;position:relative;}

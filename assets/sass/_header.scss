@@ -138,11 +138,12 @@ header.banner{
 				color:$linkaltcolor;
 			}
 		}
-		&.current_page_item a{
+		&.current_page_item a, &.current_page_parent a{
 			color:$linkaltcolor;
 		}
 	}
 }
+
 /* opendata field guide menu */
 
 #fieldguidemenu{

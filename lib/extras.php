@@ -74,6 +74,22 @@ register_post_type('stories',
   )
 );
 
+register_post_type('inventory',
+  array(
+    'labels'  => array(
+      'name'      => __('Open Data Inventory'),
+      'singular_name' => __('Open Data Inventory')
+      ),
+    'public'    => true,
+    'has_archive' => true,
+    'menu_position' => 5,
+    'publicly_queryable' => true,
+    'supports' => array('title', 'revisions', 'editor'),
+    'taxonomies' => array('post_tag')
+  )
+);
+
+
 
 register_post_type('tutorial',
   array(
@@ -184,6 +200,54 @@ function getNews($count, $cats, $type, $bootwidth = 4, $not = false){
 
   return $output;
 }
+
+function getInventory($count){
+    $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
+    $big  = 99999999;
+    $args = array(
+    'post_type'     => 'inventory',
+    'orderby'       => 'date',
+    'order'         => 'DESC',
+    'posts_per_page'=> $count,
+    'offset'        => $offset,
+    'paged'         => $paged 
+  );
+
+  $query = new WP_Query($args);
+  foreach($query->posts as $post){
+    $output .= getInventoryItems($post, 12);
+  }
+
+  $total = $query->max_num_pages;
+  $output .= paginate_links(array(
+    'base'          => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+    'format'        => $format,
+    'current'       => max( 1, $paged ),
+    'total'         => $total,
+    'mid_size'      => 3,
+    'type'          => 'list',
+    'prev_text'     => 'Previous',
+    'next_text'     => 'Next',
+  ));
+
+  return $output;
+}
+
+function getInventoryItems($post, $width){
+
+  if($width >= 4){
+      $output .= "<h2><a href='".get_field('url', $post->ID)."'>" . $post->post_title . "</a></h2>\n";
+
+    // large preview area, show details. Authord Date.
+    $output .= "<div class='meta'>\n";
+    $output .= "<span>".get_field("location", $post->ID)."</span>\n";
+    $output .= "</div>\n";
+    $output .= "<div class='excerpt'>".$post->post_content."</div>\n";
+  }
+  return $output;
+}
+
+
 
 function getNewsItems($post, $width){
 

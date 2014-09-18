@@ -217,8 +217,9 @@ article section#stories ul li{
     	margin-bottom: $gap;
     	padding-left: 15px;
     	background: url("../img/arrow.svg") no-repeat scroll 0 7px / 6px 6px rgba(0, 0, 0, 0);
-
+		
 }
+article section#stories ul.page-numbers li{background:none;}
 article section#stories ol li{
 		font-size: 1.3rem;
     	line-height: 150%;

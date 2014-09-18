@@ -11,7 +11,7 @@
 		display:block;
 	}
 	.slidecontent{
-		padding-top:80px;
+		padding-top:30px;
 	}
 	.sectiontitle{
 		padding-top:190px;
@@ -88,12 +88,19 @@ header.banner a.navbar-brand{
 .fixed header.banner a.navbar-brand{
 	height:0px;
 }
+
+footer div#footermeta copy{
+			float: right;
+			margin-top:0;
+		}
+
+/*
 .fixed header.banner{
 	nav.navbar-collapse{
 		top:10px;
 	}
 }
-
+*/
 .sectiontitle .container{@include font-size(3.5);}
 
 }
