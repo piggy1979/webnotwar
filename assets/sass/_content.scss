@@ -23,6 +23,37 @@ main{
 			}
 		}
 	}
+	h3{
+		@include font-size($h3size);	
+	}
+	h4{
+		@include font-size($h4size);
+	}
+	h6{
+		@include font-size($h5size);		
+	}
+	strong{
+		font-weight:bold;
+	}
+	em{
+		font-style: oblique;
+	}
+	blockquote{
+		background-color: #f6f6f6;
+		border: 1px solid #f0f0f0;
+		color: #999;
+		margin-bottom:$gap;
+		padding: $gap;
+		float:left;
+		max-width:400px;
+		margin-right: $gap;
+		p{
+			margin:0;
+			@include font-size($h2size);
+			font-style:oblique;	
+		}
+	}
+
 	.meta{
 		border-top: 1px solid #e5e5e5;
 		border-bottom: 1px solid #e5e5e5;
@@ -58,12 +89,12 @@ main{
 			border-top: 1px solid #e5e5e5;
 			padding-top:$gap;
 		}
-		li{
+		ul li{
 			margin-bottom: $gap;
 			margin-left: 14px;
 			line-height:150%;
 		}
-		li a {
+		ul li a {
 			padding-left:10px;
 			background: url('../img/arrow.svg') no-repeat 0 7px;
 			background-size: 6px 6px;
@@ -178,6 +209,30 @@ div.respondvid{
 article p{
 	line-height:150%;
 	@include font-size($h4size);
+}
+article section#stories ul li{
+		font-size: 1.3rem;
+    	line-height: 150%;
+    	color:#3f3f3f;
+    	margin-bottom: $gap;
+    	padding-left: 15px;
+    	background: url("../img/arrow.svg") no-repeat scroll 0 7px / 6px 6px rgba(0, 0, 0, 0);
+
+}
+article section#stories ol li{
+		font-size: 1.3rem;
+    	line-height: 150%;
+    	margin-bottom: $gap;
+    	padding-left: 15px;
+    	list-style:decimal;
+    	list-style-position: inside;
+}
+article section#stories pre ol li{
+	margin-bottom:0;
+}
+article pre.prettyprint{
+	border:1px solid #dfdfdf;
+	padding:10px;
 }
 article section>p:first-child{
 		@include font-size($h3size);
@@ -334,7 +389,6 @@ main #tutorials{
     	line-height: 150%;
     	margin-bottom: $gap;
     	padding-left: 15px;
-    	background: url("../img/arrow.svg") no-repeat scroll 0 7px / 6px 6px rgba(0, 0, 0, 0);
 	}
 	a{
 		position:relative;
@@ -378,3 +432,109 @@ main #tutorials{
 	}
 
 }
+
+.fieldguide{
+	text-align:center;
+	.storypage{
+		display:inline-block;
+		float:none;
+		max-width:1000px;
+		text-align:left;
+		font-size:125%;
+	}
+	#pagenav{
+		clear:both;
+		padding:$gap*2 0;
+	}
+	#pagenav li{
+		background:none !important;
+		margin:0;
+		padding:0;
+	}
+	li.next{float:right;}
+	li.prev{float:left;}
+	#pagenav li a{
+		text-transform:uppercase;
+		background-color: $linkcolor;
+		@include box-shadow(0px 3px #fff);
+		color:#fff;
+		padding:10px 15px;
+		@include border-radius(3px);
+		@include transition-duration(0.3s);
+		@include transition-property(all);
+		&:hover{
+			@include box-shadow(0px 3px darken($bodyaltcolor, 10%));
+			background-color:$bodyaltcolor;
+		}
+	}
+	#pagenavarrows li{
+		position:fixed;
+		background:none;
+		top:50%;
+		margin:0;
+		padding:0;
+		&.prev{
+			left:0;
+			a{
+			background: #cfcfcf url('../img/chapter-left.svg') no-repeat 50% 50%;
+			background-size: 40px 40px;
+			}
+		}
+		&.next{
+			right:0;
+			a{
+			background: #cfcfcf url('../img/chapter-right.svg') no-repeat 50% 50%;
+			background-size: 40px 40px;
+			}
+		}
+		a{
+			display:block;
+			text-indent: -10000em;
+			height:60px;
+			width:60px;
+			opacity: 0.4;
+			@include transition-duration(0.3s);
+			@include transition-property(all);
+			&:hover{
+				opacity: 0.6;
+				@include scale(1.2);
+			}
+		}
+	}
+
+}
+/* desert scheme ported from vim to google prettify */
+pre.prettyprint { display: block; background-color: #333; font-family:courier; }
+pre .nocode { background-color: none; color: #000 }
+pre .str { color: #ffa0a0 } /* string  - pink */
+pre .kwd { color: #f0e68c; font-weight: bold }
+pre .com { color: #87ceeb } /* comment - skyblue */
+pre .typ { color: #98fb98 } /* type    - lightgreen */
+pre .lit { color: #cd5c5c } /* literal - darkred */
+pre .pun { color: #fff }    /* punctuation */
+pre .pln { color: #fff }    /* plaintext */
+pre .tag { color: #f0e68c; font-weight: bold } /* html/xml tag    - lightyellow */
+pre .atn { color: #bdb76b; font-weight: bold } /* attribute name  - khaki */
+pre .atv { color: #ffa0a0 } /* attribute value - pink */
+pre .dec { color: #98fb98 } /* decimal         - lightgreen */
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE } /* IE indents via margin-left */
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
+/* Alternate shading for lines */
+li.L1,li.L3,li.L5,li.L7,li.L9 { background-color: #383838 !important; }
+
+@media print {
+  pre.prettyprint { background-color: none }
+  pre .str, code .str { color: #060 }
+  pre .kwd, code .kwd { color: #006; font-weight: bold }
+  pre .com, code .com { color: #600; font-style: italic }
+  pre .typ, code .typ { color: #404; font-weight: bold }
+  pre .lit, code .lit { color: #044 }
+  pre .pun, code .pun { color: #440 }
+  pre .pln, code .pln { color: #000 }
+  pre .tag, code .tag { color: #006; font-weight: bold }
+  pre .atn, code .atn { color: #404 }
+  pre .atv, code .atv { color: #060 }
+}
+

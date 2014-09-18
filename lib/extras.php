@@ -74,6 +74,7 @@ register_post_type('stories',
   )
 );
 
+
 register_post_type('tutorial',
   array(
     'labels'  => array(
@@ -391,6 +392,8 @@ function sectionTitle($cat=null){
   }
   $name = "";
 
+  
+
   // stories!
   if( in_array(1768, $ids) ){
     // it does contain the category so now fetch its title.
@@ -516,6 +519,19 @@ function sectionTitle($cat=null){
 
 function getParentElements($id){
 
+  if($id == 12950){
+    $args = array(
+      'child_of'  => 10080,
+      'depth'     => 1,
+      'echo'      => 0,
+      'title_li'  => __('')
+    );
+      $output .= "<div class='subcontainer'><div class='container'><ul>\n";
+      $output .= wp_list_pages($args);
+      $output .= "</ul></div></div>\n";
+      return $output;
+  }
+
   $args = array(
     'child_of'  => $id,
     'depth'     => 1,
@@ -604,3 +620,37 @@ add_filter('previous_posts_link_attributes', 'posts_link_attributes');
 function posts_link_attributes() {
     return 'class="page-numbers"';
 }
+
+/* WALKER CLASS */
+
+
+class Imp_Title_Walker extends Walker_Page {
+
+  function start_el(&$output, $page, $depth, $args, $current_page){
+
+ extract($args, EXTR_SKIP);
+$css_class = array('page_item', 'page-item-'.$page->ID);
+if ( !empty($current_page) ) {
+$_current_page = get_post( $current_page );
+if ( in_array( $page->ID, $_current_page->ancestors ) )
+$css_class[] = 'current_page_ancestor';
+if ( $page->ID == $current_page )
+$css_class[] = 'current_page_item';
+elseif ( $_current_page && $page->ID == $_current_page->post_parent )
+$css_class[] = 'current_page_parent';
+}
+elseif ( $page->ID == get_option('page_for_posts') ) {
+$css_class[] = 'current_page_parent';
+}
+ $css_class = implode( ' ', apply_filters( 'page_css_class', $css_class, $page, $depth, $args, $current_page ) );
+
+
+    $output .= "<li class='".$css_class."'><a class='tooltip' href='".get_page_link($page->ID)."' title='".esc_attr( wp_strip_all_tags( apply_filters( 'the_title', $page->post_title, $page->ID ) ) )."'>".esc_attr( wp_strip_all_tags( apply_filters( 'the_title', $page->post_title, $page->ID ) ) )."</a>";
+
+  }
+
+
+
+
+}
+

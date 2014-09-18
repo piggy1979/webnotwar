@@ -6,7 +6,9 @@
       } ?>
       <h2><?php the_title(); ?></h2>
       <?php get_template_part('templates/entry-meta'); ?>
+      <div class="sitecontent">
       <?php the_content(); ?>
+    </div>
       <?php comments_template('/templates/comments.php'); ?>
 
   </section>

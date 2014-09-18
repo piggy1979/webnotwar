@@ -2,19 +2,21 @@
 <script type="text/javascript">
 $(document).ready(function(){
   $("#cattut").selectConvert({
-    speed : 1
+    speed : 1,
+    unique : 'scdropdown1',
     <?php if($_GET['cattut']){
       $cat = get_term_by('slug', $_GET['cattut'], 'tutorial_cats' );
     //  print_r($cat);
         if($cat->name){
-          echo ", defaultname : '" . $cat->name . "'";
+          echo " defaultname : '" . $cat->name . "'";
         }
     } ?>
   });
 
-  $("#tagbox select").selectConvert({
-    defaultname : 'All Items'
-  });
+ // $("#tagbox select").selectConvert({
+ //   unique : 'scdropdown2',
+ //   defaultname : 'All Items'
+ // });
 
 });
 </script>
@@ -23,15 +25,20 @@ article{
   overflow: visible;
 }
 /* Default custom select styles */
+#filtertools{
+  margin-bottom:40px;
+}
 div.sc-select-holder {
   display: inline-block;
   vertical-align: middle;
   position: relative;
+  margin-right: 40px;
   text-align: left;
+  float: left;
   background: #fff;
   z-index: 1;
   width: 100%;
-  max-:width 300px;
+  max-width 300px;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -130,17 +137,16 @@ div.sc-select-holder:focus {
 
 div.sc-select-holder {
   color: #fff;
-  font-size: 1.8em;
+  font-size: 1.5em;
   width: 300px;
 }
 
 @media screen and (max-width: 30em) {
-  div.sc-select-holder { font-size: 1em; width: 250px; }
+  div.sc-select-holder { font-size: 1.5em; width: 250px; }
 }
 
 div.sc-select-holder::before {
   content: '';
-  background: #282b30;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -159,9 +165,10 @@ div.sc-select-holder::before {
 
 .sc-select-holder > span {
   height: 80px;
-  line-height: 32px;
+  line-height: 42px;
   -webkit-transition: text-indent 0.3s, opacity 0.3s;
   transition: text-indent 0.3s, opacity 0.3s;
+  background-color:#343434;
 }
 
 @media screen and (max-width: 30em) {
@@ -214,30 +221,6 @@ div.sc-select-holder::before {
   opacity: 1;
 }
 
-.sc-select-holder.sc-active .scoptions li:first-child {
-  -webkit-transition-delay: 0.05s;
-  transition-delay: 0.05s;
-}
-
-.sc-select-holder.sc-active .scoptions li:nth-child(2) {
-  -webkit-transition-delay: 0.1s;
-  transition-delay: 0.1s;
-}
-
-.sc-select-holder.sc-active .scoptions li:nth-child(3) {
-  -webkit-transition-delay: 0.15s;
-  transition-delay: 0.15s;
-}
-
-.sc-select-holder.sc-active .scoptions li:nth-child(4) {
-  -webkit-transition-delay: 0.2s;
-  transition-delay: 0.2s;
-}
-
-.sc-select-holder.sc-active .scoptions li:nth-child(5) {
-  -webkit-transition-delay: 0.25s;
-  transition-delay: 0.25s;
-} /* more options need more delay declaration */
 
 .sc-select-holder .scoptions li span {
   text-transform: uppercase;
@@ -245,19 +228,23 @@ div.sc-select-holder::before {
   letter-spacing: 2px;
   font-size: 65%;
   padding: 0.8em 1em;
+  background-color:#343434;
 }
 
 .sc-select-holder .scoptions li span:hover,
 .sc-select-holder .scoptions li.cs-focus span,
 .sc-select-holder .scoptions li.cs-selected span {
   color: #F1702F;
-  background: transparent;
+  /*background: transparent;*/
 }
 
 .sc-select-holder .cs-selected span::after {
   content: '';
 }
-
+#tagbox select{
+  margin-top:25px;
+}
+.hide{display:none;}
 
 
 
@@ -266,16 +253,50 @@ div.sc-select-holder::before {
 
   <section id="tutorials" class="col-sm-12 tutorialprimary">
     <div class="row padtop">
-    <div id="filtertools" class="container">
+    <div id="filtertools" class="col-sm-12">
       <form action="/tutorials/" method="get">
       <?php
 
         echo showCats("tutorial_cats");
 
       ?>
-      <div id="tagbox"><select name='tagged'></select></div>
+      <div id="tagbox">
+        <select name='tagged'>
+        <?php
 
-    <input type='submit' value='Show Tutorials'> 
+global $wpdb;
+    
+    $rows = $wpdb->get_results("
+    SELECT DISTINCT terms2.name as tag, terms2.slug as slug
+    FROM
+      wnw_2011_posts as p1
+      LEFT JOIN wnw_2011_term_relationships as r1 ON p1.ID = r1.object_ID
+      LEFT JOIN wnw_2011_term_taxonomy as t1 ON r1.term_taxonomy_id = t1.term_taxonomy_id
+      LEFT JOIN wnw_2011_terms as terms1 ON t1.term_id = terms1.term_id,
+    
+      wnw_2011_posts as p2
+      LEFT JOIN wnw_2011_term_relationships as r2 ON p2.ID = r2.object_ID
+      LEFT JOIN wnw_2011_term_taxonomy as t2 ON r2.term_taxonomy_id = t2.term_taxonomy_id
+      LEFT JOIN wnw_2011_terms as terms2 ON t2.term_id = terms2.term_id
+    WHERE
+      t1.taxonomy = 'tutorial_cats' AND p1.post_status = 'publish' AND terms1.slug = '".$_GET['cattut']."' AND
+      t2.taxonomy = 'post_tag' AND p2.post_status = 'publish'
+      AND p1.ID = p2.ID
+      ORDER BY tag ASC
+    ");
+      $output .= "<option>All</option>\n";
+      foreach($rows as $row){
+        $output .= "<option value='".$row->slug."'>" . $row->tag . "</option>\n";
+      }
+      echo $output;
+    //  die();
+
+
+        ?>
+        </select>
+      </div>
+
+    <input type='submit' class="hide" value='Show Tutorials'> 
     </form>
     </div>
 <?php

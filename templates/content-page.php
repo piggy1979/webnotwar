@@ -6,8 +6,9 @@
       <?php if ( has_post_thumbnail() ) {
         the_post_thumbnail('large');
       } ?>
+      <div class="sitecontent">
       <?php the_content(); ?>
-
+      </div>
   </section>
 
   <section id="news" class='col-sm-4 floaty'>

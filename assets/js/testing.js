@@ -2149,7 +2149,20 @@ $(document).ready(function(){
 		flex();
 	//	floatMenu();
 		formValidation();
+		toolTips();
+		if(document.getElementById('pagenav')){
+			createArrows();
+		} 
 
+	}
+
+	function toolTips(){
+    $(".inlinetooltip").tooltipster();
+	}
+
+	function createArrows(){
+		var menu = $("#pagenav");
+		menu.clone().attr('id', 'pagenavarrows').insertAfter(menu);
 	}
 
 	function mixUp(){
