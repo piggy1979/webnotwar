@@ -24,7 +24,10 @@
 			bottom: 60px;
 		}
 	}
-
+	.sectiontitle span.container {
+		@include font-size(6);	
+		line-height:100%;	
+	}
 	.home-page .wrap:before{
 		display:none;
 	}
@@ -314,6 +317,11 @@ header.banner a.navbar-brand{
 .fixed header.banner #sociallinks{
 	top: 40px;
 }
-
+article td{
+	display:table-cell;
+}
+article tr:first-child{
+	display:table-row;
+}
 }
 

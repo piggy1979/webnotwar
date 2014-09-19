@@ -206,10 +206,27 @@ div.respondvid{
 }
 
 
-article p{
+article p, article td{
 	line-height:150%;
 	@include font-size($h4size);
 }
+article td{
+	font-weight: 100;
+	padding: 20px 10px;
+	vertical-align:top;
+	display:block;
+}
+article tr{
+	border-bottom:1px dashed #efefef;
+	background-color:#fff;
+	@include transition-duration(0.6s);
+	@include transition-property(background-color);
+	&:hover{
+		background-color:#f8f8f8;
+	}
+}
+article tr:first-child{display:none;}
+article b{font-weight:600;}
 article section#stories ul li{
 		font-size: 1.3rem;
     	line-height: 150%;
@@ -400,7 +417,7 @@ main #tutorials{
 	position:relative;
 	text-decoration:none;
 	vertical-align:bottom;
-	white-space: nowrap;
+/*	white-space: nowrap; */
 	overflow:hidden;
 		&:before{
 		content: "";

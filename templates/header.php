@@ -58,7 +58,7 @@
         </li>
         <li class='contact'><a href="/contact">Contact</a></li>
 
-        <li class='share'><a href="/share">Share</a></li>
+        <li class='share'><a href="/share">Social</a></li>
       </ul>
 
     </div>

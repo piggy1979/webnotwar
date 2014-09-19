@@ -63,3 +63,8 @@ blockquote{
     max-width: 400px;
     padding: 25px;
 }
+.respondimg{height:auto; width:100%;}
+.img500{max-width:500px;}
+.img300{max-width:300px;}
+.img100{max-width:100px;}
+hr{clear:both;}
