@@ -98,6 +98,7 @@ register_post_type('tutorial',
       'singular_name' => __('Tutorial')
       ),
     'public'    => true,
+    'rewrite'   => array( 'slug' => 'opensource' ),
     'has_archive' => true,
     'menu_position' => 5,
     'publicly_queryable' => true,
@@ -200,6 +201,17 @@ function getNews($count, $cats, $type, $bootwidth = 4, $not = false){
 
   return $output;
 }
+
+function getUpcomingEvents($count)
+{
+  $args = array(
+    
+  );
+
+
+}
+
+
 
 function getInventory($count){
     $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
