@@ -1,3 +1,9 @@
+<?php
+/*
+Template Name: Open Data Template
+*/
+?>
+
   <article>
 
   <section id="stories" class="col-sm-8 storypage">

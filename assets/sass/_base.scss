@@ -19,6 +19,7 @@
 
 $bodyfont: 'Open Sans', sans-serif;
 $bodycolor: #fff;
+$basecolor: #151515;
 $bodyaltcolor: #218d99;
 $altcolor: #c7a759; //puke gold. Looks good on text not as a solid color;
 $bodydark: #343434;
@@ -51,7 +52,7 @@ html{
 }
 body{
 	font-family: $bodyfont;
-	color:#333;
+	color:$basecolor;
 	@include font-size(1.4);
 }
 a{

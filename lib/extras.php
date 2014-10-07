@@ -69,7 +69,7 @@ register_post_type('stories',
     'has_archive' => true,
     'menu_position' => 5,
     'publicly_queryable' => true,
-    'supports' => array('title', 'thumbnail', 'revisions', 'editor'),
+    'supports' => array('title', 'thumbnail', 'revisions', 'editor', 'author'),
     'taxonomies' => array('post_tag')
   )
 );
@@ -94,14 +94,14 @@ register_post_type('inventory',
 register_post_type('tutorial',
   array(
     'labels'  => array(
-      'name'      => __('Tutorials'),
+      'name'      => __('Open Source'),
       'singular_name' => __('Tutorial')
       ),
     'public'    => true,
     'has_archive' => true,
     'menu_position' => 5,
     'publicly_queryable' => true,
-    'supports' => array('title', 'thumbnail', 'revisions', 'editor'),
+    'supports' => array('title', 'thumbnail', 'revisions', 'editor', 'author'),
     'taxonomies' => array('post_tag')
   )
 );
@@ -214,6 +214,7 @@ function getInventory($count){
   );
 
   $query = new WP_Query($args);
+  //print_r($query->posts);
   foreach($query->posts as $post){
     $output .= getInventoryItems($post, 12);
   }
@@ -572,7 +573,7 @@ function sectionTitle($cat=null){
   // default
   if(!is_front_page()){
     $name = $post->post_title;
-    $output .= "<div class='sectiontitle'>".$subnav."<span class='container'>".$name."</span>";
+    $output .= "<div class='sectiontitle'>".$subnav."<span class=''>".$name."</span>";
   //  $output .= "<div class='sectionlinks'>\n";
   //  $output .= "<a class='story' href='mailto:mwnwcan@microsoft.com'>Tell Us Your Story</a>\n";
     $output .= "</div>\n";
