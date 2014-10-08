@@ -204,9 +204,32 @@ function getNews($count, $cats, $type, $bootwidth = 4, $not = false){
 
 function getUpcomingEvents($count)
 {
-  $args = array(
-    
+  $output = "";
+  global $wpdb;
+  $wpdb->show_errors();
+
+  $query = $wpdb->get_results(
+    $wpdb->prepare(
+      "SELECT wnw_2011_posts.post_title, wnw_2011_posts.ID ,wnw_2011_ai1ec_events.start  
+      FROM wnw_2011_posts 
+      JOIN wnw_2011_ai1ec_events
+      ON wnw_2011_posts.ID = wnw_2011_ai1ec_events.post_id
+      WHERE wnw_2011_posts.post_type = 'ai1ec_event'
+      AND UNIX_TIMESTAMP() < wnw_2011_ai1ec_events.start
+      ORDER BY 'start' ASC LIMIT %d", $count 
+    )
   );
+
+  $output .= "<ul>\n";
+  foreach($query as $post)
+  {
+    
+    $link = get_permalink($post->ID);
+    $output .= "<li><a href='".$link."'>".$post->post_title."<em>: ".date("F jS, Y", $post->start)."</em></a></li>";
+  }
+  $output .= "</ul>\n";
+  return $output;
+
 
 
 }

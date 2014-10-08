@@ -12,7 +12,14 @@
 	<section id="news" class='col-sm-4'>
 		<h1>Community News</h1>
 		<div class='headermsg'><a class="news" href="/community/news">View all News</a></div>
-		<?php echo getPosts(8, array(1768, 350, 1739),'title', 12, true); ?>
+		<?php echo getPosts(5, array(1768, 350, 1739),'title', 12, true); ?>
+	</section>	
+
+	<section id="news" class='col-sm-4'>
+		<h1>Upcoming Events</h1>
+		<div class="headermsg"><a class="news" href="/community/events">View all Events</a></div>
+		<?php echo getUpcomingEvents(5); ?>
+
 	</section>	
 
 	<section id="tutorials" class="col-sm-12">
