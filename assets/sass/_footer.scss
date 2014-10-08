@@ -13,6 +13,18 @@ footer{
 			color:$linkaltcolor;
 		}
 	}
+	div#footerabout{
+		border-top: 1px solid #5f5b5b;
+		padding: $gap*2+40 0;
+		overflow:auto;
+		p{
+			line-height:170%;
+			color: #a49999;
+		}
+		h2{text-align:left; margin-top:0px;}
+		img{width:100%;}
+		
+	}
 	div#footermeta{
 		clear:both;
 		font-weight: 300;
