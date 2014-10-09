@@ -73,7 +73,7 @@ main{
 		width:100%;
 	}
 	#stories{
-		font-weight:300;
+		font-weight:400;
 		.excerpt{
 			@include font-size(1.4);
 			color: $basecolor;
@@ -459,7 +459,13 @@ main #tutorials{
 		max-width:1000px;
 		text-align:left;
 		font-size:125%;
+		.sitecontent{
+			#pagenav li a:before{
+				display:none;
+			}
+		}
 	}
+
 	#pagenav{
 		clear:both;
 		padding:$gap*2 0;
@@ -513,6 +519,9 @@ main #tutorials{
 			opacity: 0.4;
 			@include transition-duration(0.3s);
 			@include transition-property(all);
+			&:before, &:after{
+				display:none;
+			}
 			&:hover{
 				opacity: 0.6;
 				@include scale(1.2);
@@ -521,6 +530,10 @@ main #tutorials{
 	}
 
 }
+
+
+
+
 /* desert scheme ported from vim to google prettify */
 pre.prettyprint { display: block; background-color: #333; font-family:courier; }
 pre .nocode { background-color: none; color: #000 }

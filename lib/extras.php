@@ -74,7 +74,7 @@ register_post_type('stories',
   )
 );
 
-register_post_type('inventory',
+register_post_type('openinventory',
   array(
     'labels'  => array(
       'name'      => __('Open Data Inventory'),
@@ -89,16 +89,13 @@ register_post_type('inventory',
   )
 );
 
-
-
-register_post_type('tutorial',
+register_post_type('opensource',
   array(
     'labels'  => array(
-      'name'      => __('Open Source'),
-      'singular_name' => __('Tutorial')
+      'name'      => __('Open Source Tutorials'),
+      'singular_name' => __('Open Source Tutorial')
       ),
     'public'    => true,
-    'rewrite'   => array( 'slug' => 'opensource' ),
     'has_archive' => true,
     'menu_position' => 5,
     'publicly_queryable' => true,
@@ -109,7 +106,7 @@ register_post_type('tutorial',
 
   register_taxonomy(
     'tutorial_cats',
-    'tutorial',
+    'opensource',
     array(
       'labels' => array(
         'name' => "Types of Tutorials",
@@ -240,7 +237,7 @@ function getInventory($count){
     $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
     $big  = 99999999;
     $args = array(
-    'post_type'     => 'inventory',
+    'post_type'     => 'openinventory',
     'orderby'       => 'date',
     'order'         => 'DESC',
     'posts_per_page'=> $count,
@@ -305,7 +302,7 @@ function getTutorials($count, $cats, $type, $bootwidth = 4, $offset = null, $pag
   $big  = 99999999;
 
   $args = array(
-    'post_type'     => 'tutorial',
+    'post_type'     => 'opensource',
     'orderby'       => 'date',
     'order'         => 'DESC',
     'posts_per_page'=> $count,
@@ -386,6 +383,7 @@ function getPosts($count, $cats, $type, $bootwidth = 4, $not = false, $offset = 
 
   $posttype = 'post';
   if($cats == "stories") $posttype = 'stories';
+  if($cats == "opensource") $posttype = 'opensource';
   $args = array(
     'post_type'     => $posttype,
     'orderby'       => 'date',
@@ -595,8 +593,8 @@ function sectionTitle($cat=null){
     $output .= "<div class='sectiontitle'>".$subnav."<div class='container abouttitle'>".$name[0]."</div></div>";
     return $output;  
   }
-  if($post->post_name == 'tutorials'){
-    $name = "Tutorials";
+  if($post->post_name == 'opensource'){
+    $name = "Open Source";
     $output .= "<div class='sectiontitle'>".$subnav."<span>".$name."</span></div>";
     return $output;  
   }

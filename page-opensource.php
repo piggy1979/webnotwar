@@ -1,3 +1,9 @@
+<?php
+/*
+Template Name: Open Source Template
+*/
+?>
+
 <script type="text/javascript" src="<?php echo JSDIR . "selectConvert.js"  ?>"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -254,7 +260,7 @@ div.sc-select-holder::before {
   <section id="tutorials" class="col-sm-12 tutorialprimary">
     <div class="row padtop">
     <div id="filtertools" class="col-sm-12">
-      <form action="/tutorials/" method="get">
+      <form action="/open-source/" method="get">
       <?php
 
         echo showCats("tutorial_cats");

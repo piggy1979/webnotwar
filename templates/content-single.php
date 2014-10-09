@@ -48,6 +48,8 @@ if( !processArray($post->ID, $ids) && $post->post_type == 'post' ){
     <?php 
     if($post->post_type == "stories"){
       echo getPosts(5, 'stories','title', 12, false); 
+    }else if($post->post_type == "opensource"){
+      echo getPosts(5, 'opensource', 'title', 12, false);
     }else{
       echo getPosts(5, array(1768, 350, 1739),'title', 12, false); 
     }
@@ -60,6 +62,8 @@ if( !processArray($post->ID, $ids) && $post->post_type == 'post' ){
     <?php 
     if($post->post_type == "stories"){
       wpp_get_mostpopular("range=weekly&limit=5&post_type=stories"); 
+    }else if($post->post_type == "opensource"){
+      wpp_get_mostpopular("range=weekly&limit=5&post_type=opensource"); 
     }else{
       wpp_get_mostpopular("range=weekly&limit=5&cat=1768");     
     }
