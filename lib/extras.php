@@ -218,9 +218,9 @@ function getUpcomingEvents($count)
   );
 
   $output .= "<ul>\n";
+  if(count($query) == 0) return false;
   foreach($query as $post)
   {
-    
     $link = get_permalink($post->ID);
     $output .= "<li><a href='".$link."'>".$post->post_title."<em>: ".date("F jS, Y", $post->start)."</em></a></li>";
   }
@@ -485,9 +485,18 @@ function sectionTitle($cat=null){
     $ids[] = $category->cat_ID;
   }
   $subnav = "";
+
+  $children = get_pages("child_of=".$post->ID);
+
+  if( count($children) != 0 )
+  {
+    $subnav .= getParentElements($post->ID);
+  }
+
   if($post->post_parent != 0){
     $subnav .= getParentElements($post->post_parent);
   }
+
   $name = "";
 
   

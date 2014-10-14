@@ -15,16 +15,27 @@
 		<?php echo getPosts(5, array(1768, 350, 1739),'title', 12, true); ?>
 	</section>	
 
+
+
+<?php
+
+$events = getUpcomingEvents(5);
+
+if($events){
+?>
 	<section id="news" class='col-sm-4'>
 		<h1>Upcoming Events</h1>
 		<div class="headermsg"><a class="news" href="/community/events">View all Events</a></div>
-		<?php echo getUpcomingEvents(5); ?>
+		<?php echo $events; ?>
 
 	</section>	
 
+<?php } ?>
+
+
 	<section id="tutorials" class="col-sm-12">
 		<h1>Latest Tutorials</h1>
-		<div class='headermsg'><a class="news" href="/tutorials">View all Tutorials</a></div>
+		<div class='headermsg'><a class="news" href="/open-source">View all Tutorials</a></div>
 		<div class="row">
 		<?php echo getTutorials(4, array(350, 1739),'preview' , 3); ?>
 		</div>

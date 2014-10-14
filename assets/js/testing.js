@@ -2221,6 +2221,10 @@ $(document).ready(function(){
 		$h4s.last().clone().insertAfter($h4s.first());
 		$h4s.last().remove();
 
+		$(".flexslider").flexslider({
+			selector : ".slide"
+		});
+
 		$("#tabs").flexslider({
 			selector: ".slide",
 			slideshow: false,
