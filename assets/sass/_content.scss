@@ -83,7 +83,7 @@ main{
 
 	#news{
 		margin-top: $gap*2;
-		font-weight:300;
+		font-weight:400;
 		@include font-size(1.3);
 		ul{
 			border-top: 1px solid #e5e5e5;
@@ -102,7 +102,7 @@ main{
 		}
 	}
 	#tutorials{
-		font-weight:300;
+		font-weight:400;
 		@include font-size(1.3);
 		img{margin-bottom: $gap;}
 		p{
@@ -531,7 +531,9 @@ main #tutorials{
 
 }
 
-
+section.widget{
+	padding-top:$gap*2;
+}
 
 
 /* desert scheme ported from vim to google prettify */

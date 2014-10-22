@@ -1,5 +1,18 @@
 <!doctype html>
-<html class="no-js" <?php language_attributes(); ?>>
+
+<?php
+// determine language
+if(get_field('language')){
+  $lang = get_field('language');
+}else{
+  $lang = "en-US";
+}
+
+
+?>
+
+
+<html class="no-js" lang="<?php echo $lang; ?>">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,5 +33,5 @@
       <link href="/wp-content/themes/webnotwar/assets/css/ie8.css" rel="stylesheet" type="text/css">
     <![endif]-->
 
-
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-544507107e348a04"></script>
 </head>

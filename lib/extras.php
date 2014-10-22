@@ -38,7 +38,7 @@ function my_print_css() {
 }
 add_action('wp_print_styles', 'my_print_css');
 
-add_image_size( 'featured', 1600, 600, true);
+add_image_size( 'featured', 1400, 400, true);
 add_image_size( 'articlethumb', 345, 189, true);
 add_image_size( 'mainthumb',710, 380,true);
 
@@ -120,19 +120,16 @@ register_post_type('opensource',
     )
   );
 
-
-
-
-
-
 }
 add_action('init', 'create_post_types');
 
-
 function featuredSlides($n){
+//  $language = pll_current_language();
+
   $args = array(
     'post_type'     => 'featured',
-    'posts_per_page'  => $n
+    'posts_per_page'  => $n //,
+   // 'lang'          => ($language == 'en' ? 'en' : 'en,fr')
   );
 
   $query = new WP_Query($args);
@@ -141,7 +138,11 @@ function featuredSlides($n){
     $imageID = get_post_thumbnail_id($post->ID);
     $image = wp_get_attachment_image_src($imageID, 'featured');
 
-    $background = "<img src='".$image[0]."' alt='".$post->post_title."'>";
+    if($image[0]){
+      $background = "<img src='".$image[0]."' alt='".$post->post_title."'>";
+    }else{
+      $background = "<img src='/images/slide-backup.png'>";
+    }
     $output .= "<div class='slide'>\n";
     $output .= $background;
     $output .= "<div class='slidecontent'><div class='addpadding'>\n";
@@ -158,19 +159,20 @@ function featuredSlides($n){
   return $output;
 }
 
-
-
-
 function getNews($count, $cats, $type, $bootwidth = 4, $not = false){
     $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
     $big  = 99999999;
+
+  //  $language = pll_current_language();
+
     $args = array(
     'post_type'     => 'post',
     'orderby'       => 'date',
     'order'         => 'DESC',
     'posts_per_page'=> $count,
     'offset'        => $offset,
-    'paged'         => $paged 
+    'paged'         => $paged //,
+  //  'lang'          => ($language == 'en' ? 'en' : 'en,fr')
   );
   
   if($not){
@@ -227,26 +229,27 @@ function getUpcomingEvents($count)
   $output .= "</ul>\n";
   return $output;
 
-
-
 }
-
 
 
 function getInventory($count){
     $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
     $big  = 99999999;
+     
+
+  //  $language = pll_current_language();
+
     $args = array(
     'post_type'     => 'openinventory',
     'orderby'       => 'date',
     'order'         => 'DESC',
     'posts_per_page'=> $count,
     'offset'        => $offset,
-    'paged'         => $paged 
+    'paged'         => $paged
+ 
   );
 
   $query = new WP_Query($args);
-  //print_r($query->posts);
   foreach($query->posts as $post){
     $output .= getInventoryItems($post, 12);
   }
@@ -280,8 +283,6 @@ function getInventoryItems($post, $width){
   return $output;
 }
 
-
-
 function getNewsItems($post, $width){
 
   if($width >= 4){
@@ -300,13 +301,16 @@ function getNewsItems($post, $width){
 function getTutorials($count, $cats, $type, $bootwidth = 4, $offset = null, $pagnate = false){
 
   $big  = 99999999;
+ // $language = pll_current_language();
 
   $args = array(
     'post_type'     => 'opensource',
     'orderby'       => 'date',
     'order'         => 'DESC',
     'posts_per_page'=> $count,
-    'offset'        => $offset
+    'offset'        => $offset //,
+  //  'lang'          => ($language == 'en' ? 'en' : 'en,fr')
+
   );
 
 
@@ -366,7 +370,7 @@ function getTutorials($count, $cats, $type, $bootwidth = 4, $offset = null, $pag
       'mid_size'      => 3,
       'type'          => 'list',
       'prev_text'     => 'Previous',
-      'next_text'     => 'Next',
+      'next_text'     => 'Next'
     ));
   }
 
@@ -384,12 +388,16 @@ function getPosts($count, $cats, $type, $bootwidth = 4, $not = false, $offset = 
   $posttype = 'post';
   if($cats == "stories") $posttype = 'stories';
   if($cats == "opensource") $posttype = 'opensource';
+
+  // $language = pll_current_language();
+
   $args = array(
     'post_type'     => $posttype,
     'orderby'       => 'date',
     'order'         => 'DESC',
     'posts_per_page'=> $count,
-    'offset'        => $offset
+    'offset'        => $offset //,
+   // 'lang'          => ($language == 'en' ? 'en' : 'en,fr')
   );
   
   if($not === true){

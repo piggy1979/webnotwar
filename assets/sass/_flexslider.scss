@@ -61,7 +61,7 @@ html[xmlns] .slides {display: block;}
 .flex-control-paging li a:before{
 	content: '0';
 }
-.flex-control-paging li a:hover { background: $linkaltcolor; text-decoration:none;}
+.flex-control-paging li a:hover { background: darken($bodyaltcolor,0.2); text-decoration:none;}
 .flex-control-paging li a.flex-active { background: $linkaltcolor;}
 
 .slidecontent{
@@ -138,3 +138,15 @@ html[xmlns] .slides {display: block;}
 }
 .slides{overflow:hidden;}
 .slide{margin-top:0px;position:relative;}
+ul.flex-direction-nav{
+	display:none;
+}
+ol.flex-control-paging li a{
+	background-color: #077D8A;
+	&:hover{
+		background-color: #076D7A;
+	}
+	&.flex-active{
+		background-color: #076D7A;
+	}
+}

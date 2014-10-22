@@ -33,7 +33,10 @@ if( !processArray($post->ID, $ids) && $post->post_type == 'post' ){
       <h2><?php the_title(); ?></h2>
       <?php get_template_part('templates/entry-meta'); ?>
       <div class='sitecontent'>
+                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <div class="addthis_sharing_toolbox"></div>
       <?php the_content(); ?>
+
       </div>
       <?php comments_template('/templates/comments.php'); ?>
 
@@ -71,7 +74,10 @@ if( !processArray($post->ID, $ids) && $post->post_type == 'post' ){
     </div>
   </div><!-- end of tabs -->
     <?php get_template_part('templates/author'); ?>
+        <?php dynamic_sidebar('sidebar-primary'); ?>
+
     </div>
+
   </section>  
 
 

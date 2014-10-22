@@ -32,6 +32,7 @@ if( !processArray($post->ID, $ids) && $post->post_type == 'post' ){
       <?php get_template_part('templates/entry-meta'); ?>
       <div class='sitecontent'>
       <?php the_content(); ?>
+
       </div>
       <?php comments_template('/templates/comments.php'); ?>
 
@@ -58,7 +59,10 @@ if( !processArray($post->ID, $ids) && $post->post_type == 'post' ){
     </div>
   </div><!-- end of tabs -->
     <?php get_template_part('templates/author'); ?>
+        <?php dynamic_sidebar('sidebar-primary'); ?>
+
     </div>
+
   </section>  
 
 
